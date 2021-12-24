@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import Guesses from './components/Guesses';
 import Numbers from './components/Numbers';
-import GuessHistory from './components/GuessHistory';
+import Nav from './components/Nav';
 
 function App() {
 	const [sequence, setSequence] = useState<[number] | null>(null);
@@ -17,6 +17,7 @@ function App() {
 
 	return (
 		<>
+			{/* <Nav /> */}
 			<h1>My app</h1>
 			<Guesses guessNumber={guessNumber} />
 			<Numbers setGuessNumber={setGuessNumber} sequence={sequence} />
