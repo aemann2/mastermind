@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import axios from 'axios';
+import Guesses from './components/Guesses';
 
 function App() {
 	const [sequence, setSequence] = useState<[number] | null>(null);
-	const [entry, setEntry] = useState(0);
+	const [entry, setEntry] = useState<number>(0);
+	const [guess, setGuess] = useState<number>(0);
 
 	const getSequence = async () => {
 		const num = await axios(
@@ -25,11 +27,13 @@ function App() {
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
 		compareSequence();
+		setGuess((prev) => prev + 1);
 	};
 
 	return (
 		<>
 			<h1>My app</h1>
+			<Guesses guess={guess} />
 			<form onSubmit={handleSubmit}>
 				<input
 					type='number'
