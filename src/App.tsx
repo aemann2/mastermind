@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import Guesses from './components/Guesses';
 import Numbers from './components/Numbers';
-import Nav from './components/Nav';
+// import Nav from './components/Nav';
 
 function App() {
 	const [sequence, setSequence] = useState<[number] | null>(null);
