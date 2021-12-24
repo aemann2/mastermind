@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import axios from 'axios';
 import Guesses from './components/Guesses';
+import Numbers from './components/Numbers';
+import GuessHistory from './components/GuessHistory';
 
 function App() {
 	const [sequence, setSequence] = useState<[number] | null>(null);
-	const [entry, setEntry] = useState<number>(0);
-	const [guess, setGuess] = useState<number>(0);
+	const [guessNumber, setGuessNumber] = useState<number>(0);
 
 	const getSequence = async () => {
 		const num = await axios(
@@ -14,34 +15,11 @@ function App() {
 		setSequence(num.data.split('\n').slice(0, -1));
 	};
 
-	const compareSequence = () => {
-		if (sequence) {
-			if (sequence.join('') === entry.toString()) {
-				console.log(true);
-			} else {
-				console.log(false);
-			}
-		}
-	};
-
-	const handleSubmit = (e: any) => {
-		e.preventDefault();
-		compareSequence();
-		setGuess((prev) => prev + 1);
-	};
-
 	return (
 		<>
 			<h1>My app</h1>
-			<Guesses guess={guess} />
-			<form onSubmit={handleSubmit}>
-				<input
-					type='number'
-					onChange={(e: any) => setEntry(e.target.value)}
-					value={entry}
-				/>
-				<button>Submit</button>
-			</form>
+			<Guesses guessNumber={guessNumber} />
+			<Numbers setGuessNumber={setGuessNumber} sequence={sequence} />
 			{sequence && <h2>{sequence}</h2>}
 			<button onClick={getSequence}>Get new sequence</button>
 		</>

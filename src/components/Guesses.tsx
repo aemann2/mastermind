@@ -1,11 +1,11 @@
 interface IProps {
-	guess: number;
+	guessNumber: number;
 }
 
-const Guesses: React.FC<IProps> = ({ guess }) => {
+const Guesses: React.FC<IProps> = ({ guessNumber }) => {
 	return (
 		<>
-			<h2>{guess} / 10</h2>
+			<h2>{guessNumber} / 10</h2>
 		</>
 	);
 };
