@@ -3,10 +3,12 @@ import axios from 'axios';
 import Guesses from './components/Guesses';
 import Numbers from './components/Numbers';
 import Modal from './components/Modal';
+import GuessHistory from './components/GuessHistory';
 // import Nav from './components/Nav';
 
 function App() {
 	const [sequence, setSequence] = useState<[number] | null>(null);
+	const [guessSequence, setGuessSequence] = useState<[number] | []>([]);
 	const [guessNumber, setGuessNumber] = useState<number>(0);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -22,10 +24,15 @@ function App() {
 			{/* <Nav /> */}
 			<h1>My app</h1>
 			<Guesses guessNumber={guessNumber} />
-			<Numbers setGuessNumber={setGuessNumber} sequence={sequence} />
+			<Numbers
+				setGuessNumber={setGuessNumber}
+				sequence={sequence}
+				setGuessSequence={setGuessSequence}
+			/>
 			{sequence && <h2>{sequence}</h2>}
 			<button onClick={getSequence}>Get new sequence</button>
 			<button onClick={() => setIsOpen((prev) => !prev)}>Open Modal</button>
+			<GuessHistory guessSequence={guessSequence} />
 			<Modal message='You win!' isOpen={isOpen} setIsOpen={setIsOpen} />
 		</>
 	);

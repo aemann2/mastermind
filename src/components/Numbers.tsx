@@ -3,9 +3,14 @@ import { useState } from 'react';
 interface IProps {
 	setGuessNumber: React.Dispatch<React.SetStateAction<number>>;
 	sequence: [number] | null;
+	setGuessSequence: React.Dispatch<React.SetStateAction<any>>;
 }
 
-const Numbers: React.FC<IProps> = ({ setGuessNumber, sequence }) => {
+const Numbers: React.FC<IProps> = ({
+	setGuessNumber,
+	sequence,
+	setGuessSequence,
+}) => {
 	const [entry, setEntry] = useState<number>(0);
 
 	const compareSequence = () => {
@@ -22,6 +27,7 @@ const Numbers: React.FC<IProps> = ({ setGuessNumber, sequence }) => {
 		e.preventDefault();
 		compareSequence();
 		setGuessNumber((prev) => prev + 1);
+		setGuessSequence((prev: [number] | []) => [...prev, entry]);
 	};
 
 	return (
