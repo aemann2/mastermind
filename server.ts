@@ -5,6 +5,8 @@ const dotenv = require('dotenv');
 const path = require('path');
 dotenv.config({ path: './config/.env' });
 const db = require('./config/db');
+const auth = require('./routes/auth');
+const scores = require('./routes/scores');
 
 const app = express();
 const PORT: String | Number = process.env.PORT || 5000;
@@ -25,7 +27,8 @@ app.use(
 	})
 );
 
-// app.use('/scores', contacts);
+app.use('/auth', auth);
+app.use('/scores', scores);
 
 // Connecting to DB
 db();
