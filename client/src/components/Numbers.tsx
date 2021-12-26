@@ -3,7 +3,7 @@ import { useState } from 'react';
 interface IProps {
 	setGuessNumber: React.Dispatch<React.SetStateAction<number>>;
 	sequence: [number] | null;
-	setGuessSequence: React.Dispatch<React.SetStateAction<any>>;
+	setGuessSequence: React.Dispatch<React.SetStateAction<number[] | []>>;
 }
 
 const Numbers: React.FC<IProps> = ({
@@ -27,7 +27,7 @@ const Numbers: React.FC<IProps> = ({
 		e.preventDefault();
 		compareSequence();
 		setGuessNumber((prev) => prev + 1);
-		setGuessSequence((prev: [number] | []) => [...prev, entry]);
+		setGuessSequence((prev: number[] | []) => [...prev, entry]);
 	};
 
 	return (
