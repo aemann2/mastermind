@@ -6,7 +6,7 @@
 	"scripts": {
 		"install-client": "cd client && yarn install",
 		"build": "cd client && yarn build",
-		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn install-client && yarn build",
+		"heroku-postbuild": "yarn install-client && yarn build",
 		"start": "ts-node server.ts",
 		"dev": "ts-node-dev --poll --no-notify ./index.ts"
 	},
