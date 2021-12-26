@@ -27,15 +27,11 @@ app.use(
 	})
 );
 
-app.use('/auth', auth);
-app.use('/scores', scores);
+app.use('/api/auth', auth);
+app.use('/api/scores', scores);
 
 // Connecting to DB
 db();
-
-app.get('/api', (req: Request, res: Response) => {
-	res.send('Hello world!');
-});
 
 // Server setup
 app.listen(PORT, () => {
