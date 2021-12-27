@@ -8,7 +8,7 @@ import GuessHistory from './components/GuessHistory';
 import { Results } from './types/types';
 
 function App() {
-	const [sequence, setSequence] = useState<[number] | null>(null);
+	const [sequence, setSequence] = useState<string[] | null>(null);
 	const [guessSequence, setGuessSequence] = useState<Results[] | []>([]);
 	const [numberOfGuesses, setNumberOfGuesses] = useState<number>(0);
 	const [win, setWin] = useState<boolean>(false);

@@ -5,7 +5,7 @@ interface IProps {
 	setWin: React.Dispatch<React.SetStateAction<boolean>>;
 	numberOfGuesses: number;
 	setNumberOfGuesses: React.Dispatch<React.SetStateAction<number>>;
-	sequence: [number] | null;
+	sequence: string[] | null;
 	modalOpen: boolean;
 	setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	setGuessSequence: React.Dispatch<React.SetStateAction<Results[] | []>>;
@@ -21,7 +21,6 @@ const Numbers: React.FC<IProps> = ({
 	setModalOpen,
 }) => {
 	const [entry, setEntry] = useState<number>(0);
-	const [comparisonResults, setComparisonResults] = useState({ N: 0, L: 0 });
 
 	useEffect(() => {
 		if (!modalOpen) {
@@ -30,26 +29,26 @@ const Numbers: React.FC<IProps> = ({
 	}, [modalOpen]);
 
 	const runCompareSequence = () => {
-		const entryString = entry.toString();
+		const entryArr = entry.toString().split('');
 		const sequenceString = sequence!.join('');
 		if (sequence) {
-			if (sequenceString === entryString) {
+			if (sequenceString === entry.toString()) {
 				setModalOpen((prev) => !prev);
 				setWin(true);
 			} else {
-				setComparisonResults(compareSequence(entryString, sequenceString));
+				const { N, L } = compareSequence(entryArr, sequence);
+				setGuessSequence((prev: Results[] | []) => [
+					...prev,
+					{ sequence: entry, N: N, L: L },
+				]);
 			}
+			setNumberOfGuesses((prev) => prev + 1);
 		}
 	};
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		runCompareSequence();
-		setNumberOfGuesses((prev) => prev + 1);
-		setGuessSequence((prev: Results[] | []) => [
-			...prev,
-			{ sequence: entry, N: comparisonResults.N, L: comparisonResults.L },
-		]);
 	};
 
 	return (
