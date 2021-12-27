@@ -1,12 +1,12 @@
 import React from 'react';
 interface IProps {
-	guessNumber: number;
+	numberOfGuesses: number;
 }
 
-const Guesses: React.FC<IProps> = ({ guessNumber }) => {
+const Guesses: React.FC<IProps> = ({ numberOfGuesses }) => {
 	return (
 		<>
-			<h2>{guessNumber} / 10</h2>
+			<h2>{numberOfGuesses} / 10</h2>
 		</>
 	);
 };

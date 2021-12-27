@@ -10,7 +10,7 @@ import { Results } from './types/types';
 function App() {
 	const [sequence, setSequence] = useState<[number] | null>(null);
 	const [guessSequence, setGuessSequence] = useState<Results[] | []>([]);
-	const [guessNumber, setGuessNumber] = useState<number>(0);
+	const [numberOfGuesses, setNumberOfGuesses] = useState<number>(0);
 	const [win, setWin] = useState<boolean>(false);
 	const [modalOpen, setModalOpen] = useState<boolean>(false);
 
@@ -28,15 +28,15 @@ function App() {
 	}, []);
 
 	useEffect(() => {
-		if (guessNumber >= 10) {
+		if (numberOfGuesses >= 10) {
 			setModalOpen(true);
 		}
-	}, [guessNumber]);
+	}, [numberOfGuesses]);
 
 	const resetGame = () => {
 		setWin(false);
 		setGuessSequence([]);
-		setGuessNumber(0);
+		setNumberOfGuesses(0);
 		setModalOpen(false);
 		getSequence();
 	};
@@ -45,12 +45,12 @@ function App() {
 		<>
 			{/* <Nav /> */}
 			<h1>Mastermind</h1>
-			<Guesses guessNumber={guessNumber} />
+			<Guesses numberOfGuesses={numberOfGuesses} />
 			<Numbers
 				setWin={setWin}
 				modalOpen={modalOpen}
-				guessNumber={guessNumber}
-				setGuessNumber={setGuessNumber}
+				numberOfGuesses={numberOfGuesses}
+				setNumberOfGuesses={setNumberOfGuesses}
 				setModalOpen={setModalOpen}
 				sequence={sequence}
 				setGuessSequence={setGuessSequence}

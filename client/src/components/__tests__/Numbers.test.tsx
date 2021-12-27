@@ -2,14 +2,14 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Numbers from '../Numbers';
 
-const setGuessNumber = jest.fn();
+const setNumberOfGuesses = jest.fn();
 const setGuessSequence = jest.fn();
 
 describe('Tests for Numbers component', () => {
 	test('Component renders', () => {
 		const { container } = render(
 			<Numbers
-				setGuessNumber={setGuessNumber}
+				setNumberOfGuesses={setNumberOfGuesses}
 				sequence={[1234]}
 				setGuessSequence={setGuessSequence}
 			/>
@@ -19,7 +19,7 @@ describe('Tests for Numbers component', () => {
 	test('Component shows correct number of inputs', () => {
 		render(
 			<Numbers
-				setGuessNumber={setGuessNumber}
+				setNumberOfGuesses={setNumberOfGuesses}
 				sequence={[1234]}
 				setGuessSequence={setGuessSequence}
 			/>
@@ -30,7 +30,7 @@ describe('Tests for Numbers component', () => {
 	test('Input shows correct value when entered', () => {
 		render(
 			<Numbers
-				setGuessNumber={setGuessNumber}
+				setNumberOfGuesses={setNumberOfGuesses}
 				sequence={[1234]}
 				setGuessSequence={setGuessSequence}
 			/>
@@ -42,7 +42,7 @@ describe('Tests for Numbers component', () => {
 	test('Input does not show value over limit', () => {
 		render(
 			<Numbers
-				setGuessNumber={setGuessNumber}
+				setNumberOfGuesses={setNumberOfGuesses}
 				sequence={[1234]}
 				setGuessSequence={setGuessSequence}
 			/>
@@ -54,7 +54,7 @@ describe('Tests for Numbers component', () => {
 	test('Input does not show value below limit', () => {
 		render(
 			<Numbers
-				setGuessNumber={setGuessNumber}
+				setNumberOfGuesses={setNumberOfGuesses}
 				sequence={[1234]}
 				setGuessSequence={setGuessSequence}
 			/>
@@ -66,7 +66,7 @@ describe('Tests for Numbers component', () => {
 	test('Submit button is present', () => {
 		render(
 			<Numbers
-				setGuessNumber={setGuessNumber}
+				setNumberOfGuesses={setNumberOfGuesses}
 				sequence={[1234]}
 				setGuessSequence={setGuessSequence}
 			/>
@@ -79,7 +79,7 @@ describe('Tests for Numbers component', () => {
 	test('Submit button clears inputs', () => {
 		render(
 			<Numbers
-				setGuessNumber={setGuessNumber}
+				setNumberOfGuesses={setNumberOfGuesses}
 				sequence={[1234]}
 				setGuessSequence={setGuessSequence}
 			/>

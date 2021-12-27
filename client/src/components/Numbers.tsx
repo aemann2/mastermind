@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Results } from '../types/types';
-
+import { compareSequence } from '../utils/utils';
 interface IProps {
 	setWin: React.Dispatch<React.SetStateAction<boolean>>;
-	guessNumber: number;
-	setGuessNumber: React.Dispatch<React.SetStateAction<number>>;
+	numberOfGuesses: number;
+	setNumberOfGuesses: React.Dispatch<React.SetStateAction<number>>;
 	sequence: [number] | null;
 	modalOpen: boolean;
 	setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,14 +13,15 @@ interface IProps {
 
 const Numbers: React.FC<IProps> = ({
 	setWin,
-	guessNumber,
-	setGuessNumber,
+	numberOfGuesses,
+	setNumberOfGuesses,
 	sequence,
 	setGuessSequence,
 	modalOpen,
 	setModalOpen,
 }) => {
 	const [entry, setEntry] = useState<number>(0);
+	const [comparisonResults, setComparisonResults] = useState({ N: 0, L: 0 });
 
 	useEffect(() => {
 		if (!modalOpen) {
@@ -28,22 +29,26 @@ const Numbers: React.FC<IProps> = ({
 		}
 	}, [modalOpen]);
 
-	const compareSequence = () => {
+	const runCompareSequence = () => {
+		const entryString = entry.toString();
+		const sequenceString = sequence!.join('');
 		if (sequence) {
-			if (sequence.join('') === entry.toString()) {
+			if (sequenceString === entryString) {
 				setModalOpen((prev) => !prev);
 				setWin(true);
+			} else {
+				setComparisonResults(compareSequence(entryString, sequenceString));
 			}
 		}
 	};
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		compareSequence();
-		setGuessNumber((prev) => prev + 1);
+		runCompareSequence();
+		setNumberOfGuesses((prev) => prev + 1);
 		setGuessSequence((prev: Results[] | []) => [
 			...prev,
-			{ sequence: entry, N: 0, L: 0 },
+			{ sequence: entry, N: comparisonResults.N, L: comparisonResults.L },
 		]);
 	};
 
@@ -57,7 +62,7 @@ const Numbers: React.FC<IProps> = ({
 					}
 					value={entry}
 				/>
-				<button disabled={modalOpen || guessNumber > 10}>Submit</button>
+				<button disabled={modalOpen || numberOfGuesses > 10}>Submit</button>
 			</form>
 		</>
 	);
