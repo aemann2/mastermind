@@ -6,4 +6,8 @@ describe('Guesses component tests', () => {
 		render(<Guesses guessNumber={5} />);
 		expect(screen.getByText('5 / 10')).toBeInTheDocument();
 	});
+	test('Guesses renders zero', () => {
+		render(<Guesses guessNumber={0} />);
+		expect(screen.getByText('0 / 10')).toBeInTheDocument();
+	});
 });

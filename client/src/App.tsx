@@ -2,13 +2,14 @@ import { useState } from 'react';
 import axios from 'axios';
 import Guesses from './components/Guesses';
 import Numbers from './components/Numbers';
-import Modal from './components/Modal';
+import Modal from './ui/Modal';
 import GuessHistory from './components/GuessHistory';
 // import Nav from './components/Nav';
+import { Results } from './types/types';
 
 function App() {
 	const [sequence, setSequence] = useState<[number] | null>(null);
-	const [guessSequence, setGuessSequence] = useState<[number] | []>([]);
+	const [guessSequence, setGuessSequence] = useState<Results[] | []>([]);
 	const [guessNumber, setGuessNumber] = useState<number>(0);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -33,7 +34,10 @@ function App() {
 			<button onClick={getSequence}>Get new sequence</button>
 			<button onClick={() => setIsOpen((prev) => !prev)}>Open Modal</button>
 			<GuessHistory guessSequence={guessSequence} />
-			<Modal message='You win!' isOpen={isOpen} setIsOpen={setIsOpen} />
+			<Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+				You win!
+				<button onClick={() => setIsOpen((prev) => !prev)}>Close</button>
+			</Modal>
 		</>
 	);
 }

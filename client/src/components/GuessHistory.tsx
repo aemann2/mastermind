@@ -1,24 +1,20 @@
 import React, { Fragment } from 'react';
-
-interface results {
-	sequence: number;
-	N: number;
-	L: number;
-}
+import { Results } from '../types/types';
 interface IProps {
-	guessSequence: results[] | [];
+	guessSequence: Results[] | [];
 }
 
 const GuessHistory: React.FC<IProps> = ({ guessSequence }) => {
 	return (
 		<>
+			{guessSequence.length > 0 && <h2>Previous Guesses</h2>}
 			{guessSequence &&
 				guessSequence.map((guess, index) => (
 					<Fragment key={index}>
-						<h2>{guess.sequence}</h2>
-						<h2>
+						<p>{guess.sequence}</p>
+						<p>
 							N: {guess.N} L: {guess.L}
-						</h2>
+						</p>
 					</Fragment>
 				))}
 		</>
