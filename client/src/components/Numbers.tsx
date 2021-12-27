@@ -39,7 +39,7 @@ const Numbers: React.FC<IProps> = ({
 				const { N, L } = compareSequence(entryArr, sequence);
 				setGuessSequence((prev: Results[] | []) => [
 					...prev,
-					{ sequence: entry, N: N, L: L },
+					{ guessSequence: entry, N: N, L: L },
 				]);
 			}
 			setNumberOfGuesses((prev) => prev + 1);

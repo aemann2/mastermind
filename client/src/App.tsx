@@ -20,7 +20,7 @@ function App() {
 		);
 		const splitNum = num.data.split('\n').slice(0, -1);
 		setSequence(splitNum);
-		console.log(splitNum);
+		// console.log(splitNum);
 	};
 
 	useEffect(() => {
