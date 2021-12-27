@@ -15,11 +15,12 @@ function App() {
 	const [modalOpen, setModalOpen] = useState<boolean>(false);
 
 	const getSequence = async () => {
-		// const num = await axios(
-		// 	'https://www.random.org/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new'
-		// );
-		// setSequence(num.data.split('\n').slice(0, -1));
-		setSequence([1234]);
+		const num = await axios(
+			'https://www.random.org/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new'
+		);
+		const splitNum = num.data.split('\n').slice(0, -1);
+		setSequence(splitNum);
+		console.log(splitNum);
 	};
 
 	useEffect(() => {
