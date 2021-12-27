@@ -1,25 +1,38 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Results } from '../types/types';
 
 interface IProps {
+	setWin: React.Dispatch<React.SetStateAction<boolean>>;
+	guessNumber: number;
 	setGuessNumber: React.Dispatch<React.SetStateAction<number>>;
 	sequence: [number] | null;
+	modalOpen: boolean;
+	setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	setGuessSequence: React.Dispatch<React.SetStateAction<Results[] | []>>;
 }
 
 const Numbers: React.FC<IProps> = ({
+	setWin,
+	guessNumber,
 	setGuessNumber,
 	sequence,
 	setGuessSequence,
+	modalOpen,
+	setModalOpen,
 }) => {
 	const [entry, setEntry] = useState<number>(0);
+
+	useEffect(() => {
+		if (!modalOpen) {
+			setEntry(0);
+		}
+	}, [modalOpen]);
 
 	const compareSequence = () => {
 		if (sequence) {
 			if (sequence.join('') === entry.toString()) {
-				console.log(true);
-			} else {
-				console.log(false);
+				setModalOpen((prev) => !prev);
+				setWin(true);
 			}
 		}
 	};
@@ -44,7 +57,7 @@ const Numbers: React.FC<IProps> = ({
 					}
 					value={entry}
 				/>
-				<button>Submit</button>
+				<button disabled={modalOpen || guessNumber > 10}>Submit</button>
 			</form>
 		</>
 	);

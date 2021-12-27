@@ -4,13 +4,13 @@ import userEvent from '@testing-library/user-event';
 import Modal from '../../ui/Modal';
 
 const TestModal: React.FC = () => {
-	const [isOpen, setIsOpen] = useState(true);
+	const [modalOpen, setModalOpen] = useState(true);
 	const mockIsOpen = () => {
-		setIsOpen((prev) => !prev);
+		setModalOpen((prev) => !prev);
 	};
 
 	return (
-		<Modal isOpen={isOpen} setIsOpen={mockIsOpen}>
+		<Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
 			This is a test
 			<button onClick={mockIsOpen}>Close</button>
 		</Modal>
