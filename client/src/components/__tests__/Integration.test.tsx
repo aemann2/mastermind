@@ -2,6 +2,10 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../../App';
 
+test('Remove', () => {
+	return;
+});
+
 // describe('Integration tests for Numbers and Guesses', () => {
 // 	test('Guesses renders correct number after submit button is clicked', () => {
 // 		render(<App />);
