@@ -4,13 +4,19 @@ import Numbers from '../Numbers';
 
 const setNumberOfGuesses = jest.fn();
 const setGuessSequence = jest.fn();
+const setWin = jest.fn();
+const setModalOpen = jest.fn();
 
 describe('Tests for Numbers component', () => {
 	test('Component renders', () => {
 		const { container } = render(
 			<Numbers
+				numberOfGuesses={0}
+				modalOpen={false}
+				setWin={setWin}
+				setModalOpen={setModalOpen}
 				setNumberOfGuesses={setNumberOfGuesses}
-				sequence={[1234]}
+				sequence={['1234']}
 				setGuessSequence={setGuessSequence}
 			/>
 		);
@@ -19,8 +25,12 @@ describe('Tests for Numbers component', () => {
 	test('Component shows correct number of inputs', () => {
 		render(
 			<Numbers
+				numberOfGuesses={0}
+				modalOpen={false}
+				setWin={setWin}
+				setModalOpen={setModalOpen}
 				setNumberOfGuesses={setNumberOfGuesses}
-				sequence={[1234]}
+				sequence={['1234']}
 				setGuessSequence={setGuessSequence}
 			/>
 		);
@@ -30,8 +40,12 @@ describe('Tests for Numbers component', () => {
 	test('Input shows correct value when entered', () => {
 		render(
 			<Numbers
+				numberOfGuesses={0}
+				modalOpen={false}
+				setWin={setWin}
+				setModalOpen={setModalOpen}
 				setNumberOfGuesses={setNumberOfGuesses}
-				sequence={[1234]}
+				sequence={['1234']}
 				setGuessSequence={setGuessSequence}
 			/>
 		);
@@ -42,8 +56,12 @@ describe('Tests for Numbers component', () => {
 	test('Input does not show value over limit', () => {
 		render(
 			<Numbers
+				numberOfGuesses={0}
+				modalOpen={false}
+				setWin={setWin}
+				setModalOpen={setModalOpen}
 				setNumberOfGuesses={setNumberOfGuesses}
-				sequence={[1234]}
+				sequence={['1234']}
 				setGuessSequence={setGuessSequence}
 			/>
 		);
@@ -54,8 +72,12 @@ describe('Tests for Numbers component', () => {
 	test('Input does not show value below limit', () => {
 		render(
 			<Numbers
+				numberOfGuesses={0}
+				modalOpen={false}
+				setWin={setWin}
+				setModalOpen={setModalOpen}
 				setNumberOfGuesses={setNumberOfGuesses}
-				sequence={[1234]}
+				sequence={['1234']}
 				setGuessSequence={setGuessSequence}
 			/>
 		);
@@ -66,8 +88,12 @@ describe('Tests for Numbers component', () => {
 	test('Submit button is present', () => {
 		render(
 			<Numbers
+				numberOfGuesses={0}
+				modalOpen={false}
+				setWin={setWin}
+				setModalOpen={setModalOpen}
 				setNumberOfGuesses={setNumberOfGuesses}
-				sequence={[1234]}
+				sequence={['1234']}
 				setGuessSequence={setGuessSequence}
 			/>
 		);
@@ -79,8 +105,12 @@ describe('Tests for Numbers component', () => {
 	test('Submit button clears inputs', () => {
 		render(
 			<Numbers
+				numberOfGuesses={0}
+				modalOpen={false}
+				setWin={setWin}
+				setModalOpen={setModalOpen}
 				setNumberOfGuesses={setNumberOfGuesses}
-				sequence={[1234]}
+				sequence={['1234']}
 				setGuessSequence={setGuessSequence}
 			/>
 		);

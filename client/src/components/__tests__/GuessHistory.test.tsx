@@ -3,15 +3,17 @@ import GuessHistory from '../GuessHistory';
 
 describe('GuessHistory component tests', () => {
 	test('GuessesHistory renders single guess number correctly', () => {
-		render(<GuessHistory guessSequence={[{ sequence: 1234, N: 1, L: 2 }]} />);
+		render(
+			<GuessHistory guessSequence={[{ guessSequence: 1234, N: 1, L: 2 }]} />
+		);
 		expect(screen.getByText('1234')).toBeInTheDocument();
 	});
 	test('GuessesHistory renders multiple guess numbers correctly', () => {
 		render(
 			<GuessHistory
 				guessSequence={[
-					{ sequence: 1234, N: 1, L: 2 },
-					{ sequence: 5678, N: 2, L: 0 },
+					{ guessSequence: 1234, N: 1, L: 2 },
+					{ guessSequence: 5678, N: 2, L: 0 },
 				]}
 			/>
 		);
@@ -19,15 +21,17 @@ describe('GuessHistory component tests', () => {
 		expect(screen.getByText('5678')).toBeInTheDocument();
 	});
 	test('GuessesHistory renders single guess hits correctly', () => {
-		render(<GuessHistory guessSequence={[{ sequence: 1234, N: 1, L: 2 }]} />);
+		render(
+			<GuessHistory guessSequence={[{ guessSequence: 1234, N: 1, L: 2 }]} />
+		);
 		expect(screen.getByText('N: 1 L: 2')).toBeInTheDocument();
 	});
 	test('GuessesHistory renders multiple guess hits correctly', () => {
 		render(
 			<GuessHistory
 				guessSequence={[
-					{ sequence: 1234, N: 1, L: 2 },
-					{ sequence: 5678, N: 2, L: 0 },
+					{ guessSequence: 1234, N: 1, L: 2 },
+					{ guessSequence: 5678, N: 2, L: 0 },
 				]}
 			/>
 		);
@@ -38,8 +42,8 @@ describe('GuessHistory component tests', () => {
 		render(
 			<GuessHistory
 				guessSequence={[
-					{ sequence: 1234, N: 1, L: 2 },
-					{ sequence: 5678, N: 2, L: 0 },
+					{ guessSequence: 1234, N: 1, L: 2 },
+					{ guessSequence: 5678, N: 2, L: 0 },
 				]}
 			/>
 		);

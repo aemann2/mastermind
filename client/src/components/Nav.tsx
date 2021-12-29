@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 const Nav = () => {
 	return (
 		<nav>
-			<Link to='/signin'>Sign In</Link>
-			<Link to='/highscores'>High Scores</Link>
+			<Link to='/login'>Log In</Link>
+			<Link to='/instructions'>Instructions</Link>
 		</nav>
 	);
 };
