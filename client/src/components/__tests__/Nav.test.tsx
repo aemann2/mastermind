@@ -18,11 +18,8 @@ describe('Tests for Nav component', () => {
 				<Nav />
 			</Router>
 		);
-		expect(screen.getByText('Log In').closest('a')).toHaveAttribute(
-			'href',
-			'/login'
-		);
-		expect(screen.getByText('Instructions').closest('a')).toHaveAttribute(
+		expect(screen.getByText('Log In')).toHaveAttribute('href', '/login');
+		expect(screen.getByText('Instructions')).toHaveAttribute(
 			'href',
 			'/instructions'
 		);

@@ -18,6 +18,7 @@ function App() {
 		const num = await axios(
 			'https://www.random.org/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new'
 		);
+		console.log(num);
 		const splitNum = num.data.split('\n').slice(0, -1);
 		setSequence(splitNum);
 		// console.log(splitNum);
