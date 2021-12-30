@@ -3,6 +3,7 @@ import axios from 'axios';
 import Guesses from './components/Guesses';
 import Numbers from './components/Numbers';
 import GameEndModal from './components/GameEndModal';
+import InstructionsModal from './components/InstructionsModal';
 import GuessHistory from './components/GuessHistory';
 // import Nav from './components/Nav';
 import { Results } from './types/types';
@@ -68,6 +69,12 @@ function App() {
 					You Lose!
 				</GameEndModal>
 			)}
+			<InstructionsModal
+				instructionModalOpen={instructionModalOpen}
+				setInstructionModalOpen={setInstructionModalOpen}
+			>
+				Game instructions
+			</InstructionsModal>
 		</>
 	);
 }

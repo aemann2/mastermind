@@ -1,15 +1,26 @@
 import Modal from '../ui/Modal';
 
 interface IProps {
-	setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+	instructionModalOpen: boolean;
+	setInstructionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const InstructionsModal: React.FC<IProps> = ({ children, setModalOpen }) => {
+const InstructionsModal: React.FC<IProps> = ({
+	children,
+	instructionModalOpen,
+	setInstructionModalOpen,
+}) => {
 	return (
-		<Modal>
-			{children}
-			<button onClick={() => setModalOpen((prev) => !prev)}>Close</button>
-		</Modal>
+		<>
+			{instructionModalOpen && (
+				<Modal>
+					{children}
+					<button onClick={() => setInstructionModalOpen((prev) => !prev)}>
+						Close
+					</button>
+				</Modal>
+			)}
+		</>
 	);
 };
 
