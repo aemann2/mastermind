@@ -6,8 +6,8 @@ interface IProps {
 	numberOfGuesses: number;
 	setNumberOfGuesses: React.Dispatch<React.SetStateAction<number>>;
 	sequence: string[] | null;
-	modalOpen: boolean;
-	setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+	gameEndModalOpen: boolean;
+	setGameEndModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	setGuessSequence: React.Dispatch<React.SetStateAction<Results[] | []>>;
 }
 
@@ -17,23 +17,23 @@ const Numbers: React.FC<IProps> = ({
 	setNumberOfGuesses,
 	sequence,
 	setGuessSequence,
-	modalOpen,
-	setModalOpen,
+	gameEndModalOpen,
+	setGameEndModalOpen,
 }) => {
 	const [entry, setEntry] = useState<number>(0);
 
 	useEffect(() => {
-		if (!modalOpen) {
+		if (!gameEndModalOpen) {
 			setEntry(0);
 		}
-	}, [modalOpen]);
+	}, [gameEndModalOpen]);
 
 	const runCompareSequence = () => {
 		const entryArr = entry.toString().split('');
 		const sequenceString = sequence!.join('');
 		if (sequence) {
 			if (sequenceString === entry.toString()) {
-				setModalOpen((prev) => !prev);
+				setGameEndModalOpen((prev) => !prev);
 				setWin(true);
 			} else {
 				const { N, L } = compareSequence(entryArr, sequence);
@@ -61,7 +61,9 @@ const Numbers: React.FC<IProps> = ({
 					}
 					value={entry}
 				/>
-				<button disabled={modalOpen || numberOfGuesses > 10}>Submit</button>
+				<button disabled={gameEndModalOpen || numberOfGuesses > 10}>
+					Submit
+				</button>
 			</form>
 		</>
 	);

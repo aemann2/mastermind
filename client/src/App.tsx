@@ -12,7 +12,9 @@ function App() {
 	const [guessSequence, setGuessSequence] = useState<Results[] | []>([]);
 	const [numberOfGuesses, setNumberOfGuesses] = useState<number>(0);
 	const [win, setWin] = useState<boolean>(false);
-	const [modalOpen, setModalOpen] = useState<boolean>(false);
+	const [gameEndModalOpen, setGameEndModalOpen] = useState<boolean>(false);
+	const [instructionModalOpen, setInstructionModalOpen] =
+		useState<boolean>(false);
 
 	const getSequence = async () => {
 		const num = await axios(
@@ -30,7 +32,7 @@ function App() {
 
 	useEffect(() => {
 		if (numberOfGuesses >= 10) {
-			setModalOpen(true);
+			setGameEndModalOpen(true);
 		}
 	}, [numberOfGuesses]);
 
@@ -38,7 +40,7 @@ function App() {
 		setWin(false);
 		setGuessSequence([]);
 		setNumberOfGuesses(0);
-		setModalOpen(false);
+		setGameEndModalOpen(false);
 		getSequence();
 	};
 
@@ -49,24 +51,23 @@ function App() {
 			<Guesses numberOfGuesses={numberOfGuesses} />
 			<Numbers
 				setWin={setWin}
-				modalOpen={modalOpen}
+				gameEndModalOpen={gameEndModalOpen}
 				numberOfGuesses={numberOfGuesses}
 				setNumberOfGuesses={setNumberOfGuesses}
-				setModalOpen={setModalOpen}
+				setGameEndModalOpen={setGameEndModalOpen}
 				sequence={sequence}
 				setGuessSequence={setGuessSequence}
 			/>
 			<GuessHistory guessSequence={guessSequence} />
-			{modalOpen &&
-				(win ? (
-					<GameEndModal setModalOpen={setModalOpen} resetGame={resetGame}>
-						You Win!
-					</GameEndModal>
-				) : (
-					<GameEndModal setModalOpen={setModalOpen} resetGame={resetGame}>
-						You Lose!
-					</GameEndModal>
-				))}
+			{win ? (
+				<GameEndModal gameEndModalOpen={gameEndModalOpen} resetGame={resetGame}>
+					You Win!
+				</GameEndModal>
+			) : (
+				<GameEndModal gameEndModalOpen={gameEndModalOpen} resetGame={resetGame}>
+					You Lose!
+				</GameEndModal>
+			)}
 		</>
 	);
 }

@@ -1,15 +1,23 @@
 import Modal from '../ui/Modal';
 
 interface IProps {
-	setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	resetGame: () => void;
+	gameEndModalOpen: boolean;
 }
 
-const GameEndModal: React.FC<IProps> = ({ children, resetGame }) => {
+const GameEndModal: React.FC<IProps> = ({
+	children,
+	resetGame,
+	gameEndModalOpen,
+}) => {
 	return (
-		<Modal>
-			{children} <button onClick={resetGame}>Close</button>
-		</Modal>
+		<>
+			{gameEndModalOpen && (
+				<Modal>
+					{children} <button onClick={resetGame}>Close</button>
+				</Modal>
+			)}
+		</>
 	);
 };
 

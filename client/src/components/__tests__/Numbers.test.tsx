@@ -12,9 +12,9 @@ describe('Tests for Numbers component', () => {
 		const { container } = render(
 			<Numbers
 				numberOfGuesses={0}
-				modalOpen={false}
+				gameEndModalOpen={false}
 				setWin={setWin}
-				setModalOpen={setModalOpen}
+				setGameEndModalOpen={setModalOpen}
 				setNumberOfGuesses={setNumberOfGuesses}
 				sequence={['1234']}
 				setGuessSequence={setGuessSequence}
@@ -26,9 +26,9 @@ describe('Tests for Numbers component', () => {
 		render(
 			<Numbers
 				numberOfGuesses={0}
-				modalOpen={false}
+				gameEndModalOpen={false}
 				setWin={setWin}
-				setModalOpen={setModalOpen}
+				setGameEndModalOpen={setModalOpen}
 				setNumberOfGuesses={setNumberOfGuesses}
 				sequence={['1234']}
 				setGuessSequence={setGuessSequence}
@@ -41,9 +41,9 @@ describe('Tests for Numbers component', () => {
 		render(
 			<Numbers
 				numberOfGuesses={0}
-				modalOpen={false}
+				gameEndModalOpen={false}
 				setWin={setWin}
-				setModalOpen={setModalOpen}
+				setGameEndModalOpen={setModalOpen}
 				setNumberOfGuesses={setNumberOfGuesses}
 				sequence={['1234']}
 				setGuessSequence={setGuessSequence}
@@ -57,9 +57,9 @@ describe('Tests for Numbers component', () => {
 		render(
 			<Numbers
 				numberOfGuesses={0}
-				modalOpen={false}
+				gameEndModalOpen={false}
 				setWin={setWin}
-				setModalOpen={setModalOpen}
+				setGameEndModalOpen={setModalOpen}
 				setNumberOfGuesses={setNumberOfGuesses}
 				sequence={['1234']}
 				setGuessSequence={setGuessSequence}
@@ -73,9 +73,9 @@ describe('Tests for Numbers component', () => {
 		render(
 			<Numbers
 				numberOfGuesses={0}
-				modalOpen={false}
+				gameEndModalOpen={false}
 				setWin={setWin}
-				setModalOpen={setModalOpen}
+				setGameEndModalOpen={setModalOpen}
 				setNumberOfGuesses={setNumberOfGuesses}
 				sequence={['1234']}
 				setGuessSequence={setGuessSequence}
@@ -89,9 +89,9 @@ describe('Tests for Numbers component', () => {
 		render(
 			<Numbers
 				numberOfGuesses={0}
-				modalOpen={false}
+				gameEndModalOpen={false}
 				setWin={setWin}
-				setModalOpen={setModalOpen}
+				setGameEndModalOpen={setModalOpen}
 				setNumberOfGuesses={setNumberOfGuesses}
 				sequence={['1234']}
 				setGuessSequence={setGuessSequence}
@@ -106,9 +106,9 @@ describe('Tests for Numbers component', () => {
 		render(
 			<Numbers
 				numberOfGuesses={0}
-				modalOpen={false}
+				gameEndModalOpen={false}
 				setWin={setWin}
-				setModalOpen={setModalOpen}
+				setGameEndModalOpen={setModalOpen}
 				setNumberOfGuesses={setNumberOfGuesses}
 				sequence={['1234']}
 				setGuessSequence={setGuessSequence}
