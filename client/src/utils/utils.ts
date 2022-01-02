@@ -1,4 +1,4 @@
-export const compareSequence = (entry: string[], sequence: string[]) => {
+export const compareSequence = (entry: number[], sequence: number[]) => {
 	// A number was correct, but not its location
 	let N = 0;
 	// A number and its location was correct

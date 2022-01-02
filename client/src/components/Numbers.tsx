@@ -5,7 +5,7 @@ interface IProps {
 	setWin: React.Dispatch<React.SetStateAction<boolean>>;
 	numberOfGuesses: number;
 	setNumberOfGuesses: React.Dispatch<React.SetStateAction<number>>;
-	sequence: string[] | null;
+	sequence: number[] | null;
 	gameEndModalOpen: boolean;
 	setGameEndModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	setGuessSequence: React.Dispatch<React.SetStateAction<Results[] | []>>;
@@ -20,26 +20,45 @@ const Numbers: React.FC<IProps> = ({
 	gameEndModalOpen,
 	setGameEndModalOpen,
 }) => {
-	const [entry, setEntry] = useState<number>(0);
+	const [inputs, setInputs] = useState({
+		1: 0,
+		2: 0,
+		3: 0,
+		4: 0,
+	});
+
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value;
+		setInputs({
+			...inputs,
+			[e.target.name]: parseInt(value),
+		});
+	};
 
 	useEffect(() => {
 		if (!gameEndModalOpen) {
-			setEntry(0);
+			setInputs({
+				1: 0,
+				2: 0,
+				3: 0,
+				4: 0,
+			});
 		}
 	}, [gameEndModalOpen]);
 
 	const runCompareSequence = () => {
-		const entryArr = entry.toString().split('');
+		const entryArr = Object.values(inputs);
 		const sequenceString = sequence!.join('');
 		if (sequence) {
-			if (sequenceString === entry.toString()) {
+			if (sequenceString === entryArr.join('')) {
 				setGameEndModalOpen((prev) => !prev);
 				setWin(true);
 			} else {
 				const { N, L } = compareSequence(entryArr, sequence);
+				console.log(compareSequence(entryArr, sequence));
 				setGuessSequence((prev: Results[] | []) => [
 					...prev,
-					{ guessSequence: entry, N: N, L: L },
+					{ guessSequence: entryArr, N: N, L: L },
 				]);
 			}
 			setNumberOfGuesses((prev) => prev + 1);
@@ -56,11 +75,40 @@ const Numbers: React.FC<IProps> = ({
 			<form onSubmit={handleSubmit}>
 				<input
 					type='number'
-					onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-						setEntry(Number(e.target.value))
-					}
-					value={entry}
-				/>
+					id='1'
+					name='1'
+					min={0}
+					max={8}
+					value={inputs[1]}
+					onChange={handleChange}
+				></input>
+				<input
+					type='number'
+					id='2'
+					name='2'
+					min={0}
+					max={8}
+					value={inputs[2]}
+					onChange={handleChange}
+				></input>
+				<input
+					type='number'
+					id='3'
+					name='3'
+					min={0}
+					max={8}
+					value={inputs[3]}
+					onChange={handleChange}
+				></input>
+				<input
+					type='number'
+					id='4'
+					name='4'
+					min={0}
+					max={8}
+					value={inputs[4]}
+					onChange={handleChange}
+				></input>
 				<button disabled={gameEndModalOpen || numberOfGuesses > 10}>
 					Submit
 				</button>

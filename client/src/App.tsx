@@ -9,7 +9,7 @@ import GuessHistory from './components/GuessHistory';
 import { Results } from './types/types';
 
 function App() {
-	const [sequence, setSequence] = useState<string[] | null>(null);
+	const [sequence, setSequence] = useState<number[] | null>(null);
 	const [guessSequence, setGuessSequence] = useState<Results[] | []>([]);
 	const [numberOfGuesses, setNumberOfGuesses] = useState<number>(0);
 	const [win, setWin] = useState<boolean>(false);
@@ -21,10 +21,9 @@ function App() {
 		const num = await axios(
 			'https://www.random.org/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new'
 		);
-		console.log(num);
+		// console.log(num);
 		const splitNum = num.data.split('\n').slice(0, -1);
-		setSequence(splitNum);
-		// console.log(splitNum);
+		setSequence(splitNum.map((num: string) => parseInt(num, 10)));
 	};
 
 	useEffect(() => {

@@ -1,5 +1,5 @@
 export interface Results {
-	guessSequence: number;
+	guessSequence: number[];
 	N: number;
 	L: number;
 }
