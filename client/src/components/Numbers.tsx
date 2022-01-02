@@ -1,50 +1,100 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Results } from '../types/types';
-
+import { compareSequence, digitCheck } from '../utils/utils';
 interface IProps {
-	setGuessNumber: React.Dispatch<React.SetStateAction<number>>;
-	sequence: [number] | null;
+	setWin: React.Dispatch<React.SetStateAction<boolean>>;
+	numberOfGuesses: number;
+	setNumberOfGuesses: React.Dispatch<React.SetStateAction<number>>;
+	sequence: number[] | null;
+	gameEndModalOpen: boolean;
+	setGameEndModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	setGuessSequence: React.Dispatch<React.SetStateAction<Results[] | []>>;
 }
 
+interface IState {
+	[key: number]: number;
+}
+
 const Numbers: React.FC<IProps> = ({
-	setGuessNumber,
+	setWin,
+	numberOfGuesses,
+	setNumberOfGuesses,
 	sequence,
 	setGuessSequence,
+	gameEndModalOpen,
+	setGameEndModalOpen,
 }) => {
-	const [entry, setEntry] = useState<number>(0);
+	const [inputValues, setInputs] = useState<IState>({
+		1: 0,
+		2: 0,
+		3: 0,
+		4: 0,
+	});
+	const numberOfInputs = 4;
+	const inputs = [];
+	for (let i = 1; i <= numberOfInputs; i++) {
+		inputs.push(
+			<input
+				type='number'
+				id={`${i}`}
+				name={`${i}`}
+				min={0}
+				max={8}
+				value={inputValues[i]}
+				onChange={handleChange}
+			></input>
+		);
+	}
 
-	const compareSequence = () => {
+	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+		const value = e.target.value;
+		if (!digitCheck(parseInt(value))) return false;
+		setInputs({
+			...inputValues,
+			[e.target.name]: parseInt(value),
+		});
+	}
+
+	useEffect(() => {
+		if (!gameEndModalOpen) {
+			setInputs({
+				1: 0,
+				2: 0,
+				3: 0,
+				4: 0,
+			});
+		}
+	}, [gameEndModalOpen]);
+
+	const runCompareSequence = () => {
+		const entryArr = Object.values(inputValues);
 		if (sequence) {
-			if (sequence.join('') === entry.toString()) {
-				console.log(true);
+			if (sequence!.join('') === entryArr.join('')) {
+				setGameEndModalOpen((prev) => !prev);
+				setWin(true);
 			} else {
-				console.log(false);
+				const { N, L } = compareSequence(entryArr, sequence);
+				setGuessSequence((prev: Results[] | []) => [
+					...prev,
+					{ guessSequence: entryArr, N: N, L: L },
+				]);
 			}
+			setNumberOfGuesses((prev) => prev + 1);
 		}
 	};
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		compareSequence();
-		setGuessNumber((prev) => prev + 1);
-		setGuessSequence((prev: Results[] | []) => [
-			...prev,
-			{ sequence: entry, N: 0, L: 0 },
-		]);
+		runCompareSequence();
 	};
 
 	return (
 		<>
 			<form onSubmit={handleSubmit}>
-				<input
-					type='number'
-					onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-						setEntry(Number(e.target.value))
-					}
-					value={entry}
-				/>
-				<button>Submit</button>
+				{inputs}
+				<button disabled={gameEndModalOpen || numberOfGuesses > 10}>
+					Submit
+				</button>
 			</form>
 		</>
 	);

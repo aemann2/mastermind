@@ -1,43 +1,79 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Guesses from './components/Guesses';
 import Numbers from './components/Numbers';
-import Modal from './ui/Modal';
+import GameEndModal from './components/GameEndModal';
+import InstructionsModal from './components/InstructionsModal';
 import GuessHistory from './components/GuessHistory';
 // import Nav from './components/Nav';
 import { Results } from './types/types';
 
 function App() {
-	const [sequence, setSequence] = useState<[number] | null>(null);
+	const [sequence, setSequence] = useState<number[] | null>(null);
 	const [guessSequence, setGuessSequence] = useState<Results[] | []>([]);
-	const [guessNumber, setGuessNumber] = useState<number>(0);
-	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [numberOfGuesses, setNumberOfGuesses] = useState<number>(0);
+	const [win, setWin] = useState<boolean>(false);
+	const [gameEndModalOpen, setGameEndModalOpen] = useState<boolean>(false);
+	const [instructionModalOpen, setInstructionModalOpen] =
+		useState<boolean>(false);
 
 	const getSequence = async () => {
 		const num = await axios(
 			'https://www.random.org/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new'
 		);
-		setSequence(num.data.split('\n').slice(0, -1));
+		// console.log(num);
+		const splitNum = num.data.split('\n').slice(0, -1);
+		setSequence(splitNum.map((num: string) => parseInt(num, 10)));
+	};
+
+	useEffect(() => {
+		getSequence();
+	}, []);
+
+	useEffect(() => {
+		if (numberOfGuesses >= 10) {
+			setGameEndModalOpen(true);
+		}
+	}, [numberOfGuesses]);
+
+	const resetGame = () => {
+		setWin(false);
+		setGuessSequence([]);
+		setNumberOfGuesses(0);
+		setGameEndModalOpen(false);
+		getSequence();
 	};
 
 	return (
 		<>
 			{/* <Nav /> */}
-			<h1>My app</h1>
-			<Guesses guessNumber={guessNumber} />
+			<h1>Mastermind</h1>
+			<Guesses numberOfGuesses={numberOfGuesses} />
 			<Numbers
-				setGuessNumber={setGuessNumber}
+				setWin={setWin}
+				gameEndModalOpen={gameEndModalOpen}
+				numberOfGuesses={numberOfGuesses}
+				setNumberOfGuesses={setNumberOfGuesses}
+				setGameEndModalOpen={setGameEndModalOpen}
 				sequence={sequence}
 				setGuessSequence={setGuessSequence}
 			/>
-			{sequence && <h2>{sequence}</h2>}
-			<button onClick={getSequence}>Get new sequence</button>
-			<button onClick={() => setIsOpen((prev) => !prev)}>Open Modal</button>
 			<GuessHistory guessSequence={guessSequence} />
-			<Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-				You win!
-				<button onClick={() => setIsOpen((prev) => !prev)}>Close</button>
-			</Modal>
+			{win ? (
+				<GameEndModal gameEndModalOpen={gameEndModalOpen} resetGame={resetGame}>
+					You Win!
+				</GameEndModal>
+			) : (
+				<GameEndModal gameEndModalOpen={gameEndModalOpen} resetGame={resetGame}>
+					You Lose!
+				</GameEndModal>
+			)}
+			<InstructionsModal
+				instructionModalOpen={instructionModalOpen}
+				setInstructionModalOpen={setInstructionModalOpen}
+			>
+				Game instructions
+			</InstructionsModal>
 		</>
 	);
 }

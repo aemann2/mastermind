@@ -11,7 +11,7 @@ const GuessHistory: React.FC<IProps> = ({ guessSequence }) => {
 			{guessSequence &&
 				guessSequence.map((guess, index) => (
 					<Fragment key={index}>
-						<p>{guess.sequence}</p>
+						<p>{guess.guessSequence}</p>
 						<p>
 							N: {guess.N} L: {guess.L}
 						</p>

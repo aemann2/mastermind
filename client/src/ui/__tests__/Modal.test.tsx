@@ -1,18 +1,11 @@
 import { render, screen } from '@testing-library/react';
-import { useState } from 'react';
-import userEvent from '@testing-library/user-event';
 import Modal from '../../ui/Modal';
 
 const TestModal: React.FC = () => {
-	const [isOpen, setIsOpen] = useState(true);
-	const mockIsOpen = () => {
-		setIsOpen((prev) => !prev);
-	};
-
 	return (
-		<Modal isOpen={isOpen} setIsOpen={mockIsOpen}>
+		<Modal>
 			This is a test
-			<button onClick={mockIsOpen}>Close</button>
+			<button>Close</button>
 		</Modal>
 	);
 };
@@ -26,11 +19,5 @@ describe('Modal component tests', () => {
 		render(<TestModal />);
 		const button = screen.getByText('Close');
 		expect(button).toBeInTheDocument();
-	});
-	test('Button closes modal', () => {
-		render(<TestModal />);
-		const button = screen.getByText('Close');
-		userEvent.click(button);
-		expect(screen.queryByText('This is a test')).not.toBeInTheDocument();
 	});
 });
