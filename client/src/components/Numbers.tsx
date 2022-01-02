@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Results } from '../types/types';
-import { compareSequence } from '../utils/utils';
+import { compareSequence, digitCheck } from '../utils/utils';
 interface IProps {
 	setWin: React.Dispatch<React.SetStateAction<boolean>>;
 	numberOfGuesses: number;
@@ -29,6 +29,7 @@ const Numbers: React.FC<IProps> = ({
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
+		if (!digitCheck(parseInt(value))) return false;
 		setInputs({
 			...inputs,
 			[e.target.name]: parseInt(value),

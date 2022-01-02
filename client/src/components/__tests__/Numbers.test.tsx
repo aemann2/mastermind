@@ -16,7 +16,7 @@ describe('Tests for Numbers component', () => {
 				setWin={setWin}
 				setGameEndModalOpen={setModalOpen}
 				setNumberOfGuesses={setNumberOfGuesses}
-				sequence={['1234']}
+				sequence={[1234]}
 				setGuessSequence={setGuessSequence}
 			/>
 		);
@@ -30,14 +30,14 @@ describe('Tests for Numbers component', () => {
 				setWin={setWin}
 				setGameEndModalOpen={setModalOpen}
 				setNumberOfGuesses={setNumberOfGuesses}
-				sequence={['1234']}
+				sequence={[1234]}
 				setGuessSequence={setGuessSequence}
 			/>
 		);
-		const inputs = screen.getAllByRole('input');
+		const inputs = screen.getAllByRole('spinbutton');
 		expect(inputs.length).toBe(4);
 	});
-	test('Input shows correct value when entered', () => {
+	test('Inputs shows correct values when entered', () => {
 		render(
 			<Numbers
 				numberOfGuesses={0}
@@ -45,13 +45,19 @@ describe('Tests for Numbers component', () => {
 				setWin={setWin}
 				setGameEndModalOpen={setModalOpen}
 				setNumberOfGuesses={setNumberOfGuesses}
-				sequence={['1234']}
+				sequence={[1234]}
 				setGuessSequence={setGuessSequence}
 			/>
 		);
-		const input = screen.getByRole('spinbutton');
-		userEvent.type(input, '1');
-		expect(input).toHaveValue(1);
+		const inputs = screen.getAllByRole('spinbutton');
+		userEvent.type(inputs[0], '1');
+		expect(inputs[0]).toHaveValue(1);
+		userEvent.type(inputs[1], '2');
+		expect(inputs[1]).toHaveValue(2);
+		userEvent.type(inputs[2], '3');
+		expect(inputs[2]).toHaveValue(3);
+		userEvent.type(inputs[3], '4');
+		expect(inputs[3]).toHaveValue(4);
 	});
 	test('Input does not show value over limit', () => {
 		render(
@@ -61,13 +67,13 @@ describe('Tests for Numbers component', () => {
 				setWin={setWin}
 				setGameEndModalOpen={setModalOpen}
 				setNumberOfGuesses={setNumberOfGuesses}
-				sequence={['1234']}
+				sequence={[1234]}
 				setGuessSequence={setGuessSequence}
 			/>
 		);
-		const input = screen.getByRole('spinbutton');
-		userEvent.type(input, '9');
-		expect(input).not.toHaveValue(9);
+		const inputs = screen.getAllByRole('spinbutton');
+		userEvent.type(inputs[0], '9');
+		expect(inputs[0]).not.toHaveValue(9);
 	});
 	test('Input does not show value below limit', () => {
 		render(
@@ -77,13 +83,13 @@ describe('Tests for Numbers component', () => {
 				setWin={setWin}
 				setGameEndModalOpen={setModalOpen}
 				setNumberOfGuesses={setNumberOfGuesses}
-				sequence={['1234']}
+				sequence={[1234]}
 				setGuessSequence={setGuessSequence}
 			/>
 		);
-		const input = screen.getByRole('spinbutton');
-		userEvent.type(input, '-1');
-		expect(input).not.toHaveValue(-1);
+		const inputs = screen.getAllByRole('spinbutton');
+		userEvent.type(inputs[0], '-1');
+		expect(inputs[0]).not.toHaveValue(-1);
 	});
 	test('Submit button is present', () => {
 		render(
@@ -93,7 +99,7 @@ describe('Tests for Numbers component', () => {
 				setWin={setWin}
 				setGameEndModalOpen={setModalOpen}
 				setNumberOfGuesses={setNumberOfGuesses}
-				sequence={['1234']}
+				sequence={[1234]}
 				setGuessSequence={setGuessSequence}
 			/>
 		);
@@ -102,7 +108,7 @@ describe('Tests for Numbers component', () => {
 		});
 		expect(submitButton).toBeInTheDocument();
 	});
-	test('Submit button clears inputs', () => {
+	test('Submit button does not clear inputs', () => {
 		render(
 			<Numbers
 				numberOfGuesses={0}
@@ -110,16 +116,16 @@ describe('Tests for Numbers component', () => {
 				setWin={setWin}
 				setGameEndModalOpen={setModalOpen}
 				setNumberOfGuesses={setNumberOfGuesses}
-				sequence={['1234']}
+				sequence={[1234]}
 				setGuessSequence={setGuessSequence}
 			/>
 		);
 		const submitButton = screen.getByRole('button', {
 			name: 'Submit',
 		});
-		const input = screen.getByRole('spinbutton');
-		userEvent.type(input, '2');
+		const inputs = screen.getAllByRole('spinbutton');
+		userEvent.type(inputs[0], '2');
 		userEvent.click(submitButton);
-		expect(screen.getByRole('spinbutton', { name: 'input1' })).toHaveValue('0');
+		expect(inputs[0]).toHaveValue(2);
 	});
 });

@@ -12,3 +12,10 @@ export const compareSequence = (entry: number[], sequence: number[]) => {
 	}
 	return { N, L };
 };
+
+export const digitCheck = (value: number) => {
+	if (value > 8 || value < 0) {
+		return false;
+	}
+	return true;
+};
