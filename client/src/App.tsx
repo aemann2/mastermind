@@ -5,7 +5,7 @@ import Numbers from './components/Numbers';
 import GameEndModal from './components/GameEndModal';
 import InstructionsModal from './components/InstructionsModal';
 import GuessHistory from './components/GuessHistory';
-// import Nav from './components/Nav';
+import Nav from './components/Nav';
 import { Results } from './types/types';
 
 function App() {
@@ -21,6 +21,7 @@ function App() {
 		const num = await axios(
 			'https://www.random.org/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new'
 		);
+		// Log to show mystery number
 		// console.log(num);
 		const splitNum = num.data.split('\n').slice(0, -1);
 		setSequence(splitNum.map((num: string) => parseInt(num, 10)));
@@ -46,7 +47,7 @@ function App() {
 
 	return (
 		<>
-			{/* <Nav /> */}
+			<Nav setInstructionModalOpen={setInstructionModalOpen} />
 			<h1>Mastermind</h1>
 			<Guesses numberOfGuesses={numberOfGuesses} />
 			<Numbers
@@ -61,19 +62,19 @@ function App() {
 			<GuessHistory guessSequence={guessSequence} />
 			{win ? (
 				<GameEndModal gameEndModalOpen={gameEndModalOpen} resetGame={resetGame}>
-					You Win!
+					<p>You won in {numberOfGuesses} guesses!</p>
+					<p>Close this window to try again.</p>
 				</GameEndModal>
 			) : (
 				<GameEndModal gameEndModalOpen={gameEndModalOpen} resetGame={resetGame}>
-					You Lose!
+					<p>Aww, you lost this time.</p>
+					<p>Close this window to try again.</p>
 				</GameEndModal>
 			)}
 			<InstructionsModal
 				instructionModalOpen={instructionModalOpen}
 				setInstructionModalOpen={setInstructionModalOpen}
-			>
-				Game instructions
-			</InstructionsModal>
+			/>
 		</>
 	);
 }

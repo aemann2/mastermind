@@ -39,7 +39,7 @@ const Numbers: React.FC<IProps> = ({
 				id={`${i}`}
 				name={`${i}`}
 				min={0}
-				max={8}
+				max={7}
 				value={inputValues[i]}
 				onChange={handleChange}
 			></input>
