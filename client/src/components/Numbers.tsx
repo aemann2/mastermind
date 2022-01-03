@@ -35,11 +35,12 @@ const Numbers: React.FC<IProps> = ({
 	for (let i = 1; i <= numberOfInputs; i++) {
 		inputs.push(
 			<input
+				key={`input ${i}`}
 				type='number'
 				id={`${i}`}
 				name={`${i}`}
 				min={0}
-				max={8}
+				max={7}
 				value={inputValues[i]}
 				onChange={handleChange}
 			></input>

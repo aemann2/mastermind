@@ -8,19 +8,19 @@ const closeModal = () => {
 	open = false;
 };
 
+const testText = "Welcome to Mastermind! Here's how to play:";
+
 const modalComponent = (
 	<InstructionsModal
 		instructionModalOpen={open}
 		setInstructionModalOpen={closeModal}
-	>
-		Test
-	</InstructionsModal>
+	/>
 );
 
 describe('Tests for GameEndModal', () => {
 	test('Modal displays correct text', () => {
 		render(modalComponent);
-		const modal = screen.getByText('Test');
+		const modal = screen.getByText(testText);
 		expect(modal).toBeInTheDocument();
 	});
 	test('Button displays for modal', () => {
