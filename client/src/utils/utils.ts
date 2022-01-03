@@ -14,8 +14,9 @@ export const compareSequence = (entry: number[], sequence: number[]) => {
 };
 
 export const digitCheck = (value: number) => {
-	if (value > 8 || value < 0) {
+	if (value > 7 || value < 0) {
 		return false;
 	}
+	if (isNaN(value)) return false;
 	return true;
 };

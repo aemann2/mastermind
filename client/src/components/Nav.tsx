@@ -1,11 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Nav = () => {
+interface IProps {
+	setInstructionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Nav: React.FC<IProps> = ({ setInstructionModalOpen }) => {
 	return (
 		<nav>
 			<Link to='/login'>Log In</Link>
-			<Link to='/instructions'>Instructions</Link>
+			<button onClick={() => setInstructionModalOpen((prev) => !prev)}>
+				Instructions
+			</button>
 		</nav>
 	);
 };

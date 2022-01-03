@@ -41,8 +41,16 @@ describe('Tests for digitCheck function', () => {
 		const result = digitCheck(2);
 		expect(result).toBe(true);
 	});
-	test('Number over 8 returns false', () => {
+	test('Upper limit for check returns true', () => {
+		const result = digitCheck(7);
+		expect(result).toBe(true);
+	});
+	test('Number over upper limit returns false', () => {
 		const result = digitCheck(9);
+		expect(result).toBe(false);
+	});
+	test('NaN returns false', () => {
+		const result = digitCheck(NaN);
 		expect(result).toBe(false);
 	});
 	test('Zero returns true', () => {
