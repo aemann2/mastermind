@@ -17,5 +17,6 @@ export const digitCheck = (value: number) => {
 	if (value > 7 || value < 0) {
 		return false;
 	}
+	if (isNaN(value)) return false;
 	return true;
 };

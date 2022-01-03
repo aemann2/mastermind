@@ -49,6 +49,10 @@ describe('Tests for digitCheck function', () => {
 		const result = digitCheck(9);
 		expect(result).toBe(false);
 	});
+	test('NaN returns false', () => {
+		const result = digitCheck(NaN);
+		expect(result).toBe(false);
+	});
 	test('Zero returns true', () => {
 		const result = digitCheck(0);
 		expect(result).toBe(true);
