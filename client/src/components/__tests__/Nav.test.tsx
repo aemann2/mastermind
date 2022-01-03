@@ -12,17 +12,13 @@ const NavComponent = (
 
 describe('Tests for Nav component', () => {
 	test('Placeholder test', () => {});
-	// test('Nav renders correctly', () => {
-	// 	render(NavComponent);
-	// 	expect(screen.getByText('Log In')).toBeInTheDocument();
-	// 	expect(screen.getByText('Instructions')).toBeInTheDocument();
-	// });
-	// test('Correct nav links are present', () => {
-	// 	render(NavComponent);
-	// 	expect(screen.getByText('Log In')).toHaveAttribute('href', '/login');
-	// 	expect(screen.getByText('Instructions')).toHaveAttribute(
-	// 		'href',
-	// 		'/instructions'
-	// 	);
-	// });
+	test('Nav renders correctly', () => {
+		render(NavComponent);
+		expect(screen.getByText('Log In')).toBeInTheDocument();
+		expect(screen.getByText('Instructions')).toBeInTheDocument();
+	});
+	test('Correct nav links are present', () => {
+		render(NavComponent);
+		expect(screen.getByText('Log In')).toHaveAttribute('href', '/login');
+	});
 });
