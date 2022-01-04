@@ -3,11 +3,15 @@ export {};
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const ScoreSchema = new Schema({
-	score: {
-		type: String,
+const scoreSchema = new Schema({
+	sequence: {
+		type: Number,
+		required: true,
+	},
+	guesses: {
+		type: Number,
 		required: true,
 	},
 });
 
-module.exports = mongoose.model('User', ScoreSchema);
+module.exports = mongoose.model('Score', scoreSchema);
