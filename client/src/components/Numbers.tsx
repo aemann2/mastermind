@@ -33,6 +33,8 @@ const Numbers: React.FC<IProps> = ({
 	});
 	const numberOfInputs = 4;
 	const inputs = [];
+	const handleFocus = (e: React.FocusEvent<HTMLInputElement>) =>
+		e.target.select();
 	for (let i = 1; i <= numberOfInputs; i++) {
 		inputs.push(
 			<input
@@ -45,6 +47,7 @@ const Numbers: React.FC<IProps> = ({
 				max={7}
 				value={inputValues[i]}
 				onChange={handleChange}
+				onFocus={handleFocus}
 			/>
 		);
 	}

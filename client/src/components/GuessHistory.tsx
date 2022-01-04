@@ -7,19 +7,29 @@ interface IProps {
 const GuessHistory: React.FC<IProps> = ({ guessSequence }) => {
 	return (
 		<div className={styles.guessHistory}>
-			{guessSequence.length > 0 && <h2>Previous Guesses</h2>}
-			{guessSequence &&
-				guessSequence.map((guess, index) => (
-					<div data-testid='guess' key={index}>
-						<span>{guess.guessSequence} </span>
-						<span>
-							<span>N: </span>
-							<span>{guess.N}</span>
-							<span> L: </span>
-							<span>{guess.L}</span>
-						</span>
-					</div>
-				))}
+			{guessSequence.length > 0 && <h3>Previous Guesses:</h3>}
+			<div className={styles.guessHistoryWrapper}>
+				{guessSequence &&
+					guessSequence.map((guess, index) => (
+						<div
+							className={styles.guessItem}
+							data-testid='guessItem'
+							key={index}
+						>
+							<div>
+								<span>{guess.guessSequence} </span>
+							</div>
+							<div>
+								<span>
+									<span className={styles.guessStat}>N: </span>
+									<span>{guess.N}</span>
+									<span className={styles.guessStat}> L: </span>
+									<span>{guess.L}</span>
+								</span>
+							</div>
+						</div>
+					))}
+			</div>
 		</div>
 	);
 };

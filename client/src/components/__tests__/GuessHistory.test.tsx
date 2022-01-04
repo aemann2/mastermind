@@ -19,12 +19,12 @@ const GuessHistoryBlank = <GuessHistory guessSequence={[]} />;
 describe('GuessHistory component tests', () => {
 	test('GuessesHistory renders single guess hits correctly', () => {
 		render(GuessHistorySingle);
-		const text = screen.getByTestId('guess');
+		const text = screen.getByTestId('guessItem');
 		expect(text.textContent).toBe('1234 N: 1 L: 2');
 	});
 	test('GuessesHistory renders guess number and guess hits correctly', () => {
 		render(GuessHistoryMultiple);
-		const text = screen.getAllByTestId('guess');
+		const text = screen.getAllByTestId('guessItem');
 		expect(text[0].textContent).toBe('1234 N: 1 L: 2');
 		expect(text[1].textContent).toBe('5678 N: 2 L: 0');
 	});
