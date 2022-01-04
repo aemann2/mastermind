@@ -7,7 +7,7 @@ import InstructionsModal from '../../components/InstructionsModal';
 import GuessHistory from '../../components/GuessHistory';
 import Nav from '../../components/Nav';
 import { Results } from '../../types/types';
-import '../../styles/index.scss';
+import styles from '../../styles/Index.module.scss';
 
 function Index() {
 	const [sequence, setSequence] = useState<number[] | null>(null);
@@ -49,7 +49,7 @@ function Index() {
 	return (
 		<>
 			<Nav setInstructionModalOpen={setInstructionModalOpen} />
-			<main className='mainContent'>
+			<main className={styles.mainContent}>
 				<Guesses numberOfGuesses={numberOfGuesses} />
 				<Numbers
 					setWin={setWin}
