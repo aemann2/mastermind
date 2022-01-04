@@ -17,35 +17,18 @@ const GuessHistoryMultiple = (
 const GuessHistoryBlank = <GuessHistory guessSequence={[]} />;
 
 describe('GuessHistory component tests', () => {
-	test('GuessesHistory renders single guess number correctly', () => {
-		render(GuessHistorySingle);
-		expect(screen.getByText('1234')).toBeInTheDocument();
-	});
-	test('GuessesHistory renders multiple guess numbers correctly', () => {
-		render(GuessHistoryMultiple);
-		expect(screen.getByText('1234')).toBeInTheDocument();
-		expect(screen.getByText('5678')).toBeInTheDocument();
-	});
 	test('GuessesHistory renders single guess hits correctly', () => {
 		render(GuessHistorySingle);
-		expect(screen.getByText('N: 1 L: 2')).toBeInTheDocument();
-	});
-	test('GuessesHistory renders multiple guess hits correctly', () => {
-		render(GuessHistoryMultiple);
-		expect(screen.getByText('N: 1 L: 2')).toBeInTheDocument();
-		expect(screen.getByText('N: 2 L: 0')).toBeInTheDocument();
+		const text = screen.getByTestId('guess');
+		expect(text.textContent).toBe('1234 N: 1 L: 2');
 	});
 	test('GuessesHistory renders guess number and guess hits correctly', () => {
 		render(GuessHistoryMultiple);
-		expect(screen.getByText('1234')).toBeInTheDocument();
-		expect(screen.getByText('N: 1 L: 2')).toBeInTheDocument();
-		expect(screen.getByText('5678')).toBeInTheDocument();
-		expect(screen.getByText('N: 2 L: 0')).toBeInTheDocument();
+		const text = screen.getAllByTestId('guess');
+		expect(text[0].textContent).toBe('1234 N: 1 L: 2');
+		expect(text[1].textContent).toBe('5678 N: 2 L: 0');
 	});
-	test('GuessesHistory renders no hits or numbers for an empty array', () => {
-		const { container } = render(GuessHistoryBlank);
-		expect(container).toBeEmptyDOMElement();
-	});
+
 	test('"Previous Guesses" does not appear if no guesses have been made', () => {
 		render(GuessHistoryBlank);
 		expect(screen.queryByText('Previous Guesses')).not.toBeInTheDocument();
