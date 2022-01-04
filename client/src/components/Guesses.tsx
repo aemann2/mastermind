@@ -6,7 +6,7 @@ interface IProps {
 const Guesses: React.FC<IProps> = ({ numberOfGuesses }) => {
 	return (
 		<>
-			<h2>{numberOfGuesses} / 10</h2>
+			<h2>Guess: {numberOfGuesses} / 10</h2>
 		</>
 	);
 };

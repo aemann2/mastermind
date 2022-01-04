@@ -8,10 +8,15 @@ interface IProps {
 const Nav: React.FC<IProps> = ({ setInstructionModalOpen }) => {
 	return (
 		<nav>
-			<Link to='/login'>Log In</Link>
-			<button onClick={() => setInstructionModalOpen((prev) => !prev)}>
-				Instructions
-			</button>
+			<div>
+				<h1>Mastermind</h1>
+			</div>
+			<div>
+				<Link to='/auth'>Log In</Link>
+				<button onClick={() => setInstructionModalOpen((prev) => !prev)}>
+					Instructions
+				</button>
+			</div>
 		</nav>
 	);
 };
