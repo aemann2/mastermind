@@ -23,7 +23,7 @@ function Index() {
 			'https://www.random.org/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new'
 		);
 		// Log to show mystery number
-		// console.log(num);
+		console.log(num);
 		const splitNum = num.data.split('\n').slice(0, -1);
 		setSequence(splitNum.map((num: string) => parseInt(num, 10)));
 	};
@@ -38,7 +38,22 @@ function Index() {
 		}
 	}, [numberOfGuesses]);
 
-	const resetGame = () => {
+	const handlePost = async () => {
+		let solved;
+		win ? (solved = true) : (solved = false);
+		try {
+			await axios.post('http://localhost:5000/api/scores', {
+				sequence: sequence,
+				guesses: numberOfGuesses,
+				solved: solved,
+			});
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const resetGame = async () => {
+		await handlePost();
 		setWin(false);
 		setGuessSequence([]);
 		setNumberOfGuesses(0);

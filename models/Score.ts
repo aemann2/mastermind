@@ -5,11 +5,15 @@ const { Schema } = mongoose;
 
 const scoreSchema = new Schema({
 	sequence: {
-		type: Number,
+		type: String,
 		required: true,
 	},
 	guesses: {
 		type: Number,
+		required: true,
+	},
+	solved: {
+		type: Boolean,
 		required: true,
 	},
 });

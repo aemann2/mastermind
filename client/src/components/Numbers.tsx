@@ -33,8 +33,7 @@ const Numbers: React.FC<IProps> = ({
 	});
 	const numberOfInputs = 4;
 	const inputs = [];
-	const handleFocus = (e: React.FocusEvent<HTMLInputElement>) =>
-		e.target.select();
+
 	for (let i = 1; i <= numberOfInputs; i++) {
 		inputs.push(
 			<input
@@ -50,6 +49,11 @@ const Numbers: React.FC<IProps> = ({
 				onFocus={handleFocus}
 			/>
 		);
+	}
+
+	// focus input box on first click
+	function handleFocus(e: React.FocusEvent<HTMLInputElement>) {
+		e.target.select();
 	}
 
 	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
