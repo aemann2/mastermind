@@ -3,7 +3,7 @@ export {};
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const scoreSchema = new Schema({
+const ScoreSchema = new Schema({
 	sequence: {
 		type: String,
 		required: true,
@@ -18,4 +18,4 @@ const scoreSchema = new Schema({
 	},
 });
 
-module.exports = mongoose.model('Score', scoreSchema);
+module.exports = mongoose.model('Score', ScoreSchema);
