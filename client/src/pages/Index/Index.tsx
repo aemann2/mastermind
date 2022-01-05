@@ -42,7 +42,7 @@ function Index() {
 		let solved;
 		win ? (solved = true) : (solved = false);
 		try {
-			await axios.post('http://localhost:5000/api/scores', {
+			await axios.post('https://mastermind-amann.herokuapp.com/api/scores', {
 				sequence: sequence,
 				guesses: numberOfGuesses,
 				solved: solved,
