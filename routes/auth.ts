@@ -4,9 +4,11 @@ import { Request, Response } from 'express';
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 const User = require('../models/User');
 
+// TS type for error message
 interface IProps {
 	message: string;
 }
@@ -28,6 +30,9 @@ router.get('/', async (req: Request, res: Response) => {
 	}
 });
 
+// @route			POST api/auth
+// @desc			Register a user
+// @access		Public
 router.post(
 	'/',
 	[
@@ -65,11 +70,23 @@ router.post(
 
 			await user.save();
 
-			res.send('User saved');
+			const token = jwt.sign(
+				{
+					user: {
+						id: user.id,
+					},
+				},
+				process.env.JWT_SECRET,
+				{
+					expiresIn: 3600,
+				}
+			);
+
+			return res.status(201).json({ status: 'Account created', token });
 		} catch (err: unknown) {
 			const e = err as IProps;
 			console.error(e.message);
-			res.status(500).send('Server Error');
+			return res.status(500).send('Server Error');
 		}
 	}
 );

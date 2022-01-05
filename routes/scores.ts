@@ -5,6 +5,9 @@ const express = require('express');
 const router = express.Router();
 const Score = require('../models/Score');
 
+// @route			GET api/scores
+// @desc			Get scores
+// @access		Private
 router.get('/', async (req: Request, res: Response) => {
 	try {
 		const scores = await Score.find();
@@ -22,6 +25,9 @@ router.get('/', async (req: Request, res: Response) => {
 	}
 });
 
+// @route			POST api/scores
+// @desc			Post score
+// @access		Private
 router.post('/', async (req: Request, res: Response) => {
 	try {
 		const { sequence, guesses, solved } = req.body;
