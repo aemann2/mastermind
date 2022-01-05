@@ -1,0 +1,18 @@
+.guessHistory {
+	h3 {
+		font-size: 1rem;
+	}
+
+	.guessHistoryWrapper {
+		background-color: #ebebeb;
+	}
+
+	.guessItem {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.guessStat {
+		font-weight: bolder;
+	}
+}

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 
+const cors = require('cors');
 const express = require('express');
 const dotenv = require('dotenv');
 const path = require('path');
@@ -9,6 +10,7 @@ const auth = require('./routes/auth');
 const scores = require('./routes/scores');
 
 const app = express();
+app.use(cors());
 const PORT: String | Number = process.env.PORT || 5000;
 
 // body parser middleware

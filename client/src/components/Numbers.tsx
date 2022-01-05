@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Results } from '../types/types';
 import { compareSequence, digitCheck } from '../utils/utils';
+import styles from '../styles/Numbers.module.scss';
 interface IProps {
 	setWin: React.Dispatch<React.SetStateAction<boolean>>;
 	numberOfGuesses: number;
@@ -32,9 +33,11 @@ const Numbers: React.FC<IProps> = ({
 	});
 	const numberOfInputs = 4;
 	const inputs = [];
+
 	for (let i = 1; i <= numberOfInputs; i++) {
 		inputs.push(
 			<input
+				className={styles.inputBox}
 				key={`input ${i}`}
 				type='number'
 				id={`${i}`}
@@ -43,8 +46,14 @@ const Numbers: React.FC<IProps> = ({
 				max={7}
 				value={inputValues[i]}
 				onChange={handleChange}
-			></input>
+				onFocus={handleFocus}
+			/>
 		);
+	}
+
+	// focus input box on first click
+	function handleFocus(e: React.FocusEvent<HTMLInputElement>) {
+		e.target.select();
 	}
 
 	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -90,14 +99,14 @@ const Numbers: React.FC<IProps> = ({
 	};
 
 	return (
-		<>
+		<div className={styles.numbers}>
 			<form onSubmit={handleSubmit}>
-				{inputs}
+				<div className={styles.inputs}>{inputs}</div>
 				<button disabled={gameEndModalOpen || numberOfGuesses > 10}>
 					Submit
 				</button>
 			</form>
-		</>
+		</div>
 	);
 };
 

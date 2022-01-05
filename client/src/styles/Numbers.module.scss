@@ -1,0 +1,22 @@
+.numbers {
+	input {
+		margin-right: 0.5rem;
+		text-align: center;
+		padding: 0.5rem;
+	}
+
+	.inputs {
+		margin-top: 1rem;
+	}
+
+	button {
+		display: block;
+		margin: 1rem auto;
+		font-size: 1.2rem;
+		background-color: #2f80ed;
+		border: none;
+		color: rgb(230, 230, 230);
+		padding: 0.3rem;
+		border-radius: 6px;
+	}
+}

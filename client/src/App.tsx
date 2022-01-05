@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Index from './pages/Index/Index';
 import Auth from './pages/Auth/Auth';
 import Scores from './pages/Scores/Scores';
+import './styles/globals.scss';
 
 function App() {
 	return (

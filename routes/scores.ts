@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 
 const express = require('express');
 const router = express.Router();
-const Score = require('../models/User');
+const Score = require('../models/Score');
 
 router.get('/', async (req: Request, res: Response) => {
 	try {
@@ -15,6 +15,30 @@ router.get('/', async (req: Request, res: Response) => {
 			data: scores,
 		});
 	} catch (err) {
+		return res.status(500).json({
+			success: false,
+			error: err,
+		});
+	}
+});
+
+router.post('/', async (req: Request, res: Response) => {
+	try {
+		const { sequence, guesses, solved } = req.body;
+
+		let sequenceString = sequence.join('');
+
+		const score = await Score.create({
+			sequence: sequenceString,
+			guesses: guesses,
+			solved: solved,
+		});
+
+		return res.status(201).json({
+			success: true,
+			data: score,
+		});
+	} catch (err: any) {
 		return res.status(500).json({
 			success: false,
 			error: err,

@@ -19,6 +19,6 @@ describe('Tests for Nav component', () => {
 	});
 	test('Correct nav links are present', () => {
 		render(NavComponent);
-		expect(screen.getByText('Log In')).toHaveAttribute('href', '/login');
+		expect(screen.getByText('Log In')).toHaveAttribute('href', '/auth');
 	});
 });

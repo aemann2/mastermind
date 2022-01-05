@@ -7,8 +7,9 @@ import InstructionsModal from '../../components/InstructionsModal';
 import GuessHistory from '../../components/GuessHistory';
 import Nav from '../../components/Nav';
 import { Results } from '../../types/types';
+import styles from '../../styles/Index.module.scss';
 
-function App() {
+function Index() {
 	const [sequence, setSequence] = useState<number[] | null>(null);
 	const [guessSequence, setGuessSequence] = useState<Results[] | []>([]);
 	const [numberOfGuesses, setNumberOfGuesses] = useState<number>(0);
@@ -22,7 +23,7 @@ function App() {
 			'https://www.random.org/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new'
 		);
 		// Log to show mystery number
-		// console.log(num);
+		console.log(num);
 		const splitNum = num.data.split('\n').slice(0, -1);
 		setSequence(splitNum.map((num: string) => parseInt(num, 10)));
 	};
@@ -37,7 +38,22 @@ function App() {
 		}
 	}, [numberOfGuesses]);
 
-	const resetGame = () => {
+	const handlePost = async () => {
+		let solved;
+		win ? (solved = true) : (solved = false);
+		try {
+			await axios.post('https://mastermind-amann.herokuapp.com/api/scores', {
+				sequence: sequence,
+				guesses: numberOfGuesses,
+				solved: solved,
+			});
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const resetGame = async () => {
+		await handlePost();
 		setWin(false);
 		setGuessSequence([]);
 		setNumberOfGuesses(0);
@@ -48,35 +64,42 @@ function App() {
 	return (
 		<>
 			<Nav setInstructionModalOpen={setInstructionModalOpen} />
-			<h1>Mastermind</h1>
-			<Guesses numberOfGuesses={numberOfGuesses} />
-			<Numbers
-				setWin={setWin}
-				gameEndModalOpen={gameEndModalOpen}
-				numberOfGuesses={numberOfGuesses}
-				setNumberOfGuesses={setNumberOfGuesses}
-				setGameEndModalOpen={setGameEndModalOpen}
-				sequence={sequence}
-				setGuessSequence={setGuessSequence}
-			/>
-			<GuessHistory guessSequence={guessSequence} />
-			{win ? (
-				<GameEndModal gameEndModalOpen={gameEndModalOpen} resetGame={resetGame}>
-					<p>You won in {numberOfGuesses} guesses!</p>
-					<p>Close this window to try again.</p>
-				</GameEndModal>
-			) : (
-				<GameEndModal gameEndModalOpen={gameEndModalOpen} resetGame={resetGame}>
-					<p>Aww, you lost this time.</p>
-					<p>Close this window to try again.</p>
-				</GameEndModal>
-			)}
-			<InstructionsModal
-				instructionModalOpen={instructionModalOpen}
-				setInstructionModalOpen={setInstructionModalOpen}
-			/>
+			<main className={styles.mainContent}>
+				<Guesses numberOfGuesses={numberOfGuesses} />
+				<Numbers
+					setWin={setWin}
+					gameEndModalOpen={gameEndModalOpen}
+					numberOfGuesses={numberOfGuesses}
+					setNumberOfGuesses={setNumberOfGuesses}
+					setGameEndModalOpen={setGameEndModalOpen}
+					sequence={sequence}
+					setGuessSequence={setGuessSequence}
+				/>
+				<GuessHistory guessSequence={guessSequence} />
+				{win ? (
+					<GameEndModal
+						gameEndModalOpen={gameEndModalOpen}
+						resetGame={resetGame}
+					>
+						<p>You won in {numberOfGuesses} guesses!</p>
+						<p>Close this window to try again.</p>
+					</GameEndModal>
+				) : (
+					<GameEndModal
+						gameEndModalOpen={gameEndModalOpen}
+						resetGame={resetGame}
+					>
+						<p>Aww, you lost this time.</p>
+						<p>Close this window to try again.</p>
+					</GameEndModal>
+				)}
+				<InstructionsModal
+					instructionModalOpen={instructionModalOpen}
+					setInstructionModalOpen={setInstructionModalOpen}
+				/>
+			</main>
 		</>
 	);
 }
 
-export default App;
+export default Index;
