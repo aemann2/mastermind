@@ -3,8 +3,13 @@ import { Request, Response } from 'express';
 
 const express = require('express');
 const router = express.Router();
-const { check, validationResult } = require('express-validator/check');
+const bcrypt = require('bcryptjs');
+const { check, validationResult } = require('express-validator');
 const User = require('../models/User');
+
+interface IProps {
+	message: string;
+}
 
 router.get('/', async (req: Request, res: Response) => {
 	try {
@@ -31,14 +36,41 @@ router.post(
 			min: 6,
 		}),
 	],
-	(req: Request, res: Response) => {
+	async (req: Request, res: Response) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			return res.status(400).json({
 				errors: errors.array(),
 			});
 		}
-		res.send('passed');
+
+		const { email, password } = req.body;
+
+		try {
+			let user = await User.findOne({ email: email });
+
+			if (user) {
+				return res.status(400).json({
+					message: 'This user already exists',
+				});
+			}
+
+			const salt = await bcrypt.genSalt(10);
+			const hash = await bcrypt.hash(password, salt);
+
+			user = new User({
+				email: email,
+				password: hash,
+			});
+
+			await user.save();
+
+			res.send('User saved');
+		} catch (err: unknown) {
+			const e = err as IProps;
+			console.error(e.message);
+			res.status(500).send('Server Error');
+		}
 	}
 );
 
