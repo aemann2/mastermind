@@ -6,12 +6,34 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
+const auth = require('../middleware/auth');
 const User = require('../models/User');
+
+// TS type for req.user
+interface IGetUserAuthInfoRequest extends Request {
+	user: {
+		id: string;
+	};
+}
 
 // TS type for error message
 interface IProps {
 	message: string;
 }
+
+// @route			GET api/auth
+// @desc			Get logged in user
+// @access		Private
+router.get('/', auth, async (req: IGetUserAuthInfoRequest, res: Response) => {
+	try {
+		const user = await User.findById(req.user.id).select('-password');
+		res.json(user);
+	} catch (err: unknown) {
+		const e = err as IProps;
+		console.error(e.message);
+		return res.status(500).send('Server Error');
+	}
+});
 
 // @route			POST api/auth
 // @desc			Authenticate a user
