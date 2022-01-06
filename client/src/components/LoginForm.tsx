@@ -27,6 +27,7 @@ const LoginForm = () => {
 					name='email'
 					value={email}
 					onChange={onChange}
+					required
 				></input>
 				<label htmlFor='email'>Password</label>
 				<input
@@ -34,6 +35,7 @@ const LoginForm = () => {
 					name='password'
 					value={password}
 					onChange={onChange}
+					required
 				></input>
 				<button>Submit</button>
 			</form>

@@ -28,6 +28,7 @@ const RegisterForm = () => {
 					name='email'
 					value={email}
 					onChange={onChange}
+					required
 				></input>
 				<label htmlFor='email'>Password</label>
 				<input
@@ -35,6 +36,8 @@ const RegisterForm = () => {
 					name='password'
 					value={password}
 					onChange={onChange}
+					required
+					minLength={6}
 				></input>
 				<label htmlFor='email'>Confirm Password</label>
 				<input
@@ -42,6 +45,8 @@ const RegisterForm = () => {
 					name='password2'
 					value={password2}
 					onChange={onChange}
+					required
+					minLength={6}
 				></input>
 				<button>Submit</button>
 			</form>
