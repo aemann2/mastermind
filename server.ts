@@ -22,6 +22,7 @@ app.use(
 	})
 );
 
+// Routes
 app.use('/api/signup', signup);
 app.use('/api/auth', auth);
 app.use('/api/scores', scores);
