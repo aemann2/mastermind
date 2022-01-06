@@ -4,6 +4,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const ScoreSchema = new Schema({
+	user: {
+		type: Schema.Types.ObjectId,
+		ref: 'users',
+	},
 	sequence: {
 		type: String,
 		required: true,
@@ -15,6 +19,10 @@ const ScoreSchema = new Schema({
 	solved: {
 		type: Boolean,
 		required: true,
+	},
+	date: {
+		type: Date,
+		default: Date.now,
 	},
 });
 

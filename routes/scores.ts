@@ -3,14 +3,24 @@ import { Request, Response } from 'express';
 
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth');
+const { check, validationResult } = require('express-validator');
+
+const User = require('../models/User');
 const Score = require('../models/Score');
+
+interface IGetUserAuthInfoRequest extends Request {
+	user: {
+		id: string;
+	};
+}
 
 // @route			GET api/scores
 // @desc			Get scores
 // @access		Private
-router.get('/', async (req: Request, res: Response) => {
+router.get('/', auth, async (req: IGetUserAuthInfoRequest, res: Response) => {
 	try {
-		const scores = await Score.find();
+		const scores = await Score.find({ user: req.user.id }).sort({ date: -1 });
 
 		return res.status(200).json({
 			success: true,
