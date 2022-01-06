@@ -14,7 +14,7 @@ interface IProps {
 }
 
 // @route			POST api/auth
-// @desc			Authenticate a user
+// @desc			Register a user
 // @access		Public
 router.post(
 	'/',
@@ -37,19 +37,21 @@ router.post(
 		try {
 			let user = await User.findOne({ email: email });
 
-			if (!user) {
+			if (user) {
 				return res.status(400).json({
-					message: 'This email is not associated with a user',
+					message: 'This user already exists',
 				});
 			}
 
-			const match = await bcrypt.compare(password, user.password);
+			const salt = await bcrypt.genSalt(10);
+			const hash = await bcrypt.hash(password, salt);
 
-			if (!match) {
-				return res.status(400).json({
-					message: 'Invalid password',
-				});
-			}
+			user = new User({
+				email: email,
+				password: hash,
+			});
+
+			await user.save();
 
 			const token = jwt.sign(
 				{
@@ -63,7 +65,7 @@ router.post(
 				}
 			);
 
-			return res.status(201).json({ status: 'Login successful', token });
+			return res.status(201).json({ status: 'Account created', token });
 		} catch (err: unknown) {
 			const e = err as IProps;
 			console.error(e.message);
