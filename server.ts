@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 const path = require('path');
 dotenv.config({ path: './config/.env' });
 const db = require('./config/db');
+const signup = require('./routes/signup');
 const auth = require('./routes/auth');
 const scores = require('./routes/scores');
 
@@ -21,6 +22,8 @@ app.use(
 	})
 );
 
+// Routes
+app.use('/api/signup', signup);
 app.use('/api/auth', auth);
 app.use('/api/scores', scores);
 

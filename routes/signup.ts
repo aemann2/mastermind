@@ -6,37 +6,15 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
-const auth = require('../middleware/auth');
 const User = require('../models/User');
-
-// TS type for req.user
-interface IGetUserAuthInfoRequest extends Request {
-	user: {
-		id: string;
-	};
-}
 
 // TS type for error message
 interface IProps {
 	message: string;
 }
 
-// @route			GET api/auth
-// @desc			Get logged in user
-// @access		Private
-router.get('/', auth, async (req: IGetUserAuthInfoRequest, res: Response) => {
-	try {
-		const user = await User.findById(req.user.id).select('-password');
-		res.json(user);
-	} catch (err: unknown) {
-		const e = err as IProps;
-		console.error(e.message);
-		return res.status(500).send('Server Error');
-	}
-});
-
 // @route			POST api/auth
-// @desc			Authenticate a user
+// @desc			Register a user
 // @access		Public
 router.post(
 	'/',
@@ -59,19 +37,21 @@ router.post(
 		try {
 			let user = await User.findOne({ email: email });
 
-			if (!user) {
+			if (user) {
 				return res.status(400).json({
-					message: 'This email is not associated with a user',
+					message: 'This user already exists',
 				});
 			}
 
-			const match = await bcrypt.compare(password, user.password);
+			const salt = await bcrypt.genSalt(10);
+			const hash = await bcrypt.hash(password, salt);
 
-			if (!match) {
-				return res.status(400).json({
-					message: 'Invalid password',
-				});
-			}
+			user = new User({
+				email: email,
+				password: hash,
+			});
+
+			await user.save();
 
 			const token = jwt.sign(
 				{
@@ -85,7 +65,7 @@ router.post(
 				}
 			);
 
-			return res.status(201).json({ status: 'Login successful', token });
+			return res.status(201).json({ status: 'Account created', token });
 		} catch (err: unknown) {
 			const e = err as IProps;
 			console.error(e.message);
