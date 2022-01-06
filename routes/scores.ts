@@ -6,7 +6,6 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const { check, validationResult } = require('express-validator');
 
-const User = require('../models/User');
 const Score = require('../models/Score');
 
 interface IGetUserAuthInfoRequest extends Request {
