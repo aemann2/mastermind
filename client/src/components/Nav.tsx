@@ -14,7 +14,8 @@ const Nav: React.FC<IProps> = ({ setInstructionModalOpen }) => {
 					<h1>Mastermind</h1>
 				</div>
 				<div>
-					<Link to='/auth'>Log In</Link>
+					<Link to='/login'>Log In</Link>
+					<Link to='/register'>Register</Link>
 					<button onClick={() => setInstructionModalOpen((prev) => !prev)}>
 						Instructions
 					</button>
