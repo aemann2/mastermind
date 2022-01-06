@@ -8,6 +8,7 @@ interface IGetUserAuthInfoRequest extends Request {
 	};
 }
 
+// Middleware function, which has access to req and res object
 module.exports = function (
 	req: IGetUserAuthInfoRequest,
 	res: Response,
