@@ -11,7 +11,8 @@ interface AuthAction {
 		| 'REGISTER_FAIL'
 		| 'CLEAR_ERROR'
 		| 'USER_LOADED'
-		| 'AUTH_ERROR';
+		| 'AUTH_ERROR'
+		| 'LOGIN_FAIL';
 	payload?: any;
 }
 
@@ -44,6 +45,7 @@ const AuthReducer = (state: IState, action: AuthAction) => {
 				isAuthenticated: true,
 			};
 		case 'REGISTER_FAIL':
+		case 'LOGIN_FAIL':
 		case 'AUTH_ERROR':
 			localStorage.removeItem('token');
 			return {

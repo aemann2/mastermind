@@ -87,8 +87,32 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
 	// };
 
 	// Login User
-	const login = (email: string, password: string) => {
-		console.log('login user');
+	const login = async (email: string, password: string) => {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		};
+		try {
+			const res = await axios.post(
+				'http://localhost:5000/api/auth',
+				{ email, password },
+				config
+			);
+
+			dispatch({
+				type: 'REGISTER_SUCCESS',
+				payload: res.data,
+			});
+
+			loadUser();
+		} catch (err: unknown) {
+			const e = err as Error;
+			dispatch({
+				type: 'LOGIN_FAIL',
+				payload: e.response.data.message,
+			});
+		}
 	};
 
 	// Logout User

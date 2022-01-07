@@ -13,8 +13,6 @@ const Register = () => {
 		}
 	}, [isAuthenticated, navigate]);
 
-	if (isAuthenticated) {
-	}
 	return (
 		<div>
 			<RegisterForm />

@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { AuthContext } from '../context/auth/authProvider';
 
 const LoginForm = () => {
+	const { login, error } = useContext(AuthContext);
+
 	const [user, setUser] = useState({
 		email: '',
 		password: '',
@@ -12,9 +15,9 @@ const LoginForm = () => {
 		setUser({ ...user, [e.target.name]: e.target.value });
 	};
 
-	const onSubmit = (e: React.FormEvent) => {
+	const onSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		console.log('Submitted');
+		await login(email, password);
 	};
 
 	return (
@@ -39,6 +42,7 @@ const LoginForm = () => {
 				></input>
 				<button>Submit</button>
 			</form>
+			{error && <p>{error}</p>}
 		</div>
 	);
 };
