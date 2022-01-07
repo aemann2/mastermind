@@ -31,11 +31,9 @@ function Index() {
 	};
 
 	useEffect(() => {
-		if (isAuthenticated) {
-			loadUserRef.current();
-		}
 		getSequence();
-	}, [isAuthenticated]);
+		loadUserRef.current();
+	}, []);
 
 	useEffect(() => {
 		if (numberOfGuesses >= 10) {
