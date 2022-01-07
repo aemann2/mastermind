@@ -42,7 +42,9 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
 		}
 
 		try {
-			const res = await axios.get('http://localhost:5000/api/auth');
+			const res = await axios.get(
+				'https://mastermind-amann.herokuapp.com//api/auth'
+			);
 
 			dispatch({
 				type: 'USER_LOADED',
@@ -63,7 +65,7 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
 
 		try {
 			const res = await axios.post(
-				'http://localhost:5000/api/signup',
+				'https://mastermind-amann.herokuapp.com/api/signup',
 				{ email, password },
 				config
 			);
@@ -99,7 +101,7 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
 		};
 		try {
 			const res = await axios.post(
-				'http://localhost:5000/api/auth',
+				'https://mastermind-amann.herokuapp.com/api/auth',
 				{ email, password },
 				config
 			);

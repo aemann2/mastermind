@@ -24,7 +24,9 @@ function Index() {
 	const loadUserRef = useRef(loadUser);
 
 	const getSequence = async () => {
-		const num = await axios('http://localhost:5000/api/randomnum');
+		const num = await axios(
+			'https://mastermind-amann.herokuapp.com/api/randomnum'
+		);
 		// Log to show mystery number
 		console.log(num.data.number);
 		setSequence(num.data.number);
