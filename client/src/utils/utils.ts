@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const compareSequence = (entry: number[], sequence: number[]) => {
 	// A number was correct, but not its location
 	let N = 0;
@@ -19,4 +21,12 @@ export const digitCheck = (value: number) => {
 	}
 	if (isNaN(value)) return false;
 	return true;
+};
+
+export const setAuthToken = (token: string) => {
+	if (token) {
+		axios.defaults.headers.common['x-auth-token'] = token;
+	} else {
+		delete axios.defaults.headers.common['x-auth-token'];
+	}
 };

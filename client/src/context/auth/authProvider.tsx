@@ -1,6 +1,7 @@
 import React, { useReducer, createContext } from 'react';
 import axios from 'axios';
 import AuthReducer, { defaultAuthState } from './authReducer';
+import { setAuthToken } from '../../utils/utils';
 
 interface IProps {
 	children: React.ReactNode;
@@ -23,12 +24,30 @@ export const AuthContext = createContext({
 	register: (email: string, password: string) => {},
 	login: (email: string, password: string) => {},
 	logout: () => {},
+	loadUser: () => {},
 	// clearError: () => {},
 });
 
 const AuthProvider: React.FC<IProps> = ({ children }) => {
 	const [state, dispatch] = useReducer(AuthReducer, defaultAuthState);
+
 	// Load User
+	const loadUser = async () => {
+		if (localStorage.token) {
+			setAuthToken(localStorage.token);
+		}
+
+		try {
+			const res = await axios.get('http://localhost:5000/api/auth');
+
+			dispatch({
+				type: 'USER_LOADED',
+				payload: res.data,
+			});
+		} catch (err) {
+			dispatch({ type: 'AUTH_ERROR' });
+		}
+	};
 
 	// Register User
 	const register = async (email: string, password: string) => {
@@ -49,14 +68,14 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
 				type: 'REGISTER_SUCCESS',
 				payload: res.data,
 			});
-			return true;
+
+			loadUser();
 		} catch (err: unknown) {
 			const e = err as Error;
 			dispatch({
 				type: 'REGISTER_FAIL',
 				payload: e.response.data.message,
 			});
-			return false;
 		}
 	};
 
@@ -88,6 +107,7 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
 				register,
 				login,
 				logout,
+				loadUser,
 				// clearError,
 			}}
 		>

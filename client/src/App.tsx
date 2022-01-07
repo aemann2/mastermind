@@ -4,7 +4,12 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Scores from './pages/Scores/Scores';
 import AuthProvider from './context/auth/authProvider';
+import { setAuthToken } from './utils/utils';
 import './styles/globals.scss';
+
+if (localStorage.token) {
+	setAuthToken(localStorage.token);
+}
 
 function App() {
 	return (

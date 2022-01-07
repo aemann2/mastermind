@@ -6,7 +6,12 @@ interface IState {
 	error: string | null;
 }
 interface AuthAction {
-	type: 'REGISTER_SUCCESS' | 'REGISTER_FAIL' | 'CLEAR_ERROR';
+	type:
+		| 'REGISTER_SUCCESS'
+		| 'REGISTER_FAIL'
+		| 'CLEAR_ERROR'
+		| 'USER_LOADED'
+		| 'AUTH_ERROR';
 	payload?: any;
 }
 
@@ -20,6 +25,13 @@ export const defaultAuthState = {
 
 const AuthReducer = (state: IState, action: AuthAction) => {
 	switch (action.type) {
+		case 'USER_LOADED':
+			return {
+				...state,
+				isAuthenticated: true,
+				loading: false,
+				user: action.payload,
+			};
 		case 'REGISTER_SUCCESS':
 			// FIXME:
 			//@ts-ignore
@@ -32,6 +44,7 @@ const AuthReducer = (state: IState, action: AuthAction) => {
 				isAuthenticated: true,
 			};
 		case 'REGISTER_FAIL':
+		case 'AUTH_ERROR':
 			localStorage.removeItem('token');
 			return {
 				...state,
