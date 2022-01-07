@@ -18,7 +18,7 @@ function Index() {
 	const [gameEndModalOpen, setGameEndModalOpen] = useState<boolean>(false);
 	const [instructionModalOpen, setInstructionModalOpen] =
 		useState<boolean>(false);
-	const { loadUser } = useContext(AuthContext);
+	const { isAuthenticated, loadUser } = useContext(AuthContext);
 
 	// Ref to get around useEffect dependency warning
 	const loadUserRef = useRef(loadUser);
@@ -31,9 +31,11 @@ function Index() {
 	};
 
 	useEffect(() => {
+		if (isAuthenticated) {
+			loadUserRef.current();
+		}
 		getSequence();
-		loadUserRef.current();
-	}, []);
+	}, [isAuthenticated]);
 
 	useEffect(() => {
 		if (numberOfGuesses >= 10) {
@@ -56,7 +58,9 @@ function Index() {
 	};
 
 	const resetGame = async () => {
-		await handlePost();
+		if (isAuthenticated) {
+			await handlePost();
+		}
 		setWin(false);
 		setGuessSequence([]);
 		setNumberOfGuesses(0);
