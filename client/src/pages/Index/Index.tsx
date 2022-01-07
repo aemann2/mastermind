@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext, useRef } from 'react';
 import axios from 'axios';
 import Guesses from '../../components/Guesses';
 import Numbers from '../../components/Numbers';
@@ -6,6 +6,7 @@ import GameEndModal from '../../components/GameEndModal';
 import InstructionsModal from '../../components/InstructionsModal';
 import GuessHistory from '../../components/GuessHistory';
 import Nav from '../../components/Nav';
+import { AuthContext } from '../../context/auth/authProvider';
 import { Results } from '../../types/types';
 import styles from '../../styles/Index.module.scss';
 
@@ -17,19 +18,23 @@ function Index() {
 	const [gameEndModalOpen, setGameEndModalOpen] = useState<boolean>(false);
 	const [instructionModalOpen, setInstructionModalOpen] =
 		useState<boolean>(false);
+	const { isAuthenticated, loadUser } = useContext(AuthContext);
+
+	// Ref to get around useEffect dependency warning
+	const loadUserRef = useRef(loadUser);
 
 	const getSequence = async () => {
 		const num = await axios(
-			'https://www.random.org/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new'
+			'https://mastermind-amann.herokuapp.com/api/randomnum'
 		);
 		// Log to show mystery number
-		console.log(num);
-		const splitNum = num.data.split('\n').slice(0, -1);
-		setSequence(splitNum.map((num: string) => parseInt(num, 10)));
+		console.log(num.data.number);
+		setSequence(num.data.number);
 	};
 
 	useEffect(() => {
 		getSequence();
+		loadUserRef.current();
 	}, []);
 
 	useEffect(() => {
@@ -53,7 +58,9 @@ function Index() {
 	};
 
 	const resetGame = async () => {
-		await handlePost();
+		if (isAuthenticated) {
+			await handlePost();
+		}
 		setWin(false);
 		setGuessSequence([]);
 		setNumberOfGuesses(0);
