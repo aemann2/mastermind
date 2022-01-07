@@ -23,6 +23,11 @@ const Nav: React.FC<IProps> = ({ setInstructionModalOpen }) => {
 							<Link to='/register'>Register</Link>
 						</>
 					)}
+					{isAuthenticated && (
+						<>
+							<Link to='/scores'>Your Scores</Link>
+						</>
+					)}
 					<button>Log Out</button>
 					<button onClick={() => setInstructionModalOpen((prev) => !prev)}>
 						Instructions
