@@ -8,6 +8,7 @@ dotenv.config({ path: './config/.env' });
 const db = require('./config/db');
 const signup = require('./routes/signup');
 const auth = require('./routes/auth');
+const randomnum = require('./routes/randomnum');
 const scores = require('./routes/scores');
 
 const app = express();
@@ -26,6 +27,7 @@ app.use(
 app.use('/api/signup', signup);
 app.use('/api/auth', auth);
 app.use('/api/scores', scores);
+app.use('/api/randomnum', randomnum);
 
 // Connecting to DB
 db();

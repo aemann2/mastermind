@@ -79,7 +79,7 @@ const Numbers: React.FC<IProps> = ({
 	const runCompareSequence = () => {
 		const entryArr = Object.values(inputValues);
 		if (sequence) {
-			if (sequence!.join('') === entryArr.join('')) {
+			if (sequence!.join('').toString() === entryArr.join('')) {
 				setGameEndModalOpen((prev) => !prev);
 				setWin(true);
 			} else {
