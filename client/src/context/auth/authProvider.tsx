@@ -43,7 +43,7 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
 
 		try {
 			const res = await axios.get(
-				'https://mastermind-amann.herokuapp.com//api/auth'
+				'https://mastermind-amann.herokuapp.com/api/auth'
 			);
 
 			dispatch({
