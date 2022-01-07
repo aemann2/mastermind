@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../context/auth/authProvider';
 import styles from '../styles/Nav.module.scss';
 
 interface IProps {
@@ -7,6 +9,7 @@ interface IProps {
 }
 
 const Nav: React.FC<IProps> = ({ setInstructionModalOpen }) => {
+	const { isAuthenticated } = useContext(AuthContext);
 	return (
 		<div className={styles.navBar}>
 			<nav>
@@ -14,8 +17,12 @@ const Nav: React.FC<IProps> = ({ setInstructionModalOpen }) => {
 					<h1>Mastermind</h1>
 				</div>
 				<div>
-					<Link to='/login'>Log In</Link>
-					<Link to='/register'>Register</Link>
+					{!isAuthenticated && (
+						<>
+							<Link to='/login'>Log In</Link>
+							<Link to='/register'>Register</Link>
+						</>
+					)}
 					<button>Log Out</button>
 					<button onClick={() => setInstructionModalOpen((prev) => !prev)}>
 						Instructions
