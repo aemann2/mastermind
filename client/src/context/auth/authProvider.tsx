@@ -19,7 +19,11 @@ export const AuthContext = createContext({
 	token: null,
 	isAuthenticated: null,
 	loading: false,
-	user: null,
+	user: {
+		_id: null,
+		email: null,
+		date: null,
+	},
 	error: null,
 	register: (email: string, password: string) => {},
 	login: (email: string, password: string) => {},
@@ -101,7 +105,7 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
 			);
 
 			dispatch({
-				type: 'REGISTER_SUCCESS',
+				type: 'LOGIN_SUCCESS',
 				payload: res.data,
 			});
 
@@ -117,7 +121,7 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
 
 	// Logout User
 	const logout = () => {
-		console.log('logout user');
+		dispatch({ type: 'LOGOUT' });
 	};
 
 	return (

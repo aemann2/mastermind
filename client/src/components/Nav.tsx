@@ -9,12 +9,14 @@ interface IProps {
 }
 
 const Nav: React.FC<IProps> = ({ setInstructionModalOpen }) => {
-	const { isAuthenticated } = useContext(AuthContext);
+	const { isAuthenticated, logout, user } = useContext(AuthContext);
+
 	return (
 		<div className={styles.navBar}>
 			<nav>
 				<div>
-					<h1>Mastermind</h1>
+					<Link to='/'>Mastermind</Link>
+					{user && <p>{user.email}</p>}
 				</div>
 				<div>
 					{!isAuthenticated && (
@@ -26,7 +28,7 @@ const Nav: React.FC<IProps> = ({ setInstructionModalOpen }) => {
 					{isAuthenticated && (
 						<>
 							<Link to='/scores'>Your Scores</Link>
-							<button>Log Out</button>
+							<button onClick={() => logout()}>Log Out</button>
 						</>
 					)}
 					<button onClick={() => setInstructionModalOpen((prev) => !prev)}>

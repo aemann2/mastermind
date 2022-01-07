@@ -1,8 +1,16 @@
+interface User {
+	user: {
+		_id: string;
+		email: string;
+		date: string;
+	};
+}
+
 interface IState {
 	token: string | null;
 	isAuthenticated: boolean | null;
 	loading: boolean;
-	user: any;
+	user: User;
 	error: string | null;
 }
 interface AuthAction {
@@ -12,7 +20,9 @@ interface AuthAction {
 		| 'CLEAR_ERROR'
 		| 'USER_LOADED'
 		| 'AUTH_ERROR'
-		| 'LOGIN_FAIL';
+		| 'LOGIN_SUCCESS'
+		| 'LOGIN_FAIL'
+		| 'LOGOUT';
 	payload?: any;
 }
 
@@ -34,19 +44,18 @@ const AuthReducer = (state: IState, action: AuthAction) => {
 				user: action.payload,
 			};
 		case 'REGISTER_SUCCESS':
-			// FIXME:
-			//@ts-ignore
+		case 'LOGIN_SUCCESS':
 			localStorage.setItem('token', action.payload.token);
 			return {
 				...state,
-				// FIXME:
-				//@ts-ignore
 				...action.payload,
 				isAuthenticated: true,
+				loading: false,
 			};
 		case 'REGISTER_FAIL':
 		case 'LOGIN_FAIL':
 		case 'AUTH_ERROR':
+		case 'LOGOUT':
 			localStorage.removeItem('token');
 			return {
 				...state,
