@@ -21,6 +21,9 @@ export const AuthContext = createContext({
 	user: null,
 	error: null,
 	register: (email: string, password: string) => {},
+	login: (email: string, password: string) => {},
+	logout: () => {},
+	// clearError: () => {},
 });
 
 const AuthProvider: React.FC<IProps> = ({ children }) => {
@@ -46,20 +49,33 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
 				type: 'REGISTER_SUCCESS',
 				payload: res.data,
 			});
+			return true;
 		} catch (err: unknown) {
 			const e = err as Error;
 			dispatch({
 				type: 'REGISTER_FAIL',
 				payload: e.response.data.message,
 			});
+			return false;
 		}
 	};
 
+	// // Clear error
+	// const clearError = () => {
+	// 	dispatch({
+	// 		type: 'CLEAR_ERROR',
+	// 	});
+	// };
+
 	// Login User
+	const login = (email: string, password: string) => {
+		console.log('login user');
+	};
 
 	// Logout User
-
-	// Clear error
+	const logout = () => {
+		console.log('logout user');
+	};
 
 	return (
 		<AuthContext.Provider
@@ -69,7 +85,10 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
 				loading: state.loading,
 				user: state.user,
 				error: state.error,
-				register: register,
+				register,
+				login,
+				logout,
+				// clearError,
 			}}
 		>
 			{children}

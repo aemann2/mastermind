@@ -6,8 +6,8 @@ interface IState {
 	error: string | null;
 }
 interface AuthAction {
-	type: 'REGISTER_SUCCESS' | 'REGISTER_FAIL';
-	payload: any;
+	type: 'REGISTER_SUCCESS' | 'REGISTER_FAIL' | 'CLEAR_ERROR';
+	payload?: any;
 }
 
 export const defaultAuthState = {
@@ -40,6 +40,11 @@ const AuthReducer = (state: IState, action: AuthAction) => {
 				user: null,
 				error: action.payload,
 			};
+		// case 'CLEAR_ERROR':
+		// 	return {
+		// 		...state,
+		// 		error: null,
+		// 	};
 		default:
 			return state;
 	}

@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/auth/authProvider';
 
 const RegisterForm = () => {
-	const { register } = useContext(AuthContext);
+	const { register, error } = useContext(AuthContext);
 
 	const [user, setUser] = useState({
 		email: '',
@@ -16,14 +16,9 @@ const RegisterForm = () => {
 		setUser({ ...user, [e.target.name]: e.target.value });
 	};
 
-	const onSubmit = (e: React.FormEvent) => {
+	const onSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		register(email, password);
-		setUser({
-			email: '',
-			password: '',
-			password2: '',
-		});
+		await register(email, password);
 	};
 
 	return (
@@ -32,7 +27,7 @@ const RegisterForm = () => {
 			<form onSubmit={onSubmit}>
 				<label htmlFor='email'>Email</label>
 				<input
-					type='text'
+					type='email'
 					name='email'
 					value={email}
 					onChange={onChange}
@@ -58,6 +53,7 @@ const RegisterForm = () => {
 				></input>
 				<button>Submit</button>
 			</form>
+			{error && <p>{error}</p>}
 		</div>
 	);
 };
