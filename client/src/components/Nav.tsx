@@ -23,21 +23,21 @@ const Nav: React.FC<IProps> = ({ setInstructionModalOpen }) => {
 					<div>
 						{!isAuthenticated && (
 							<>
-								<li className={styles.leftLink}>
+								<li className={styles.rightLink}>
 									<Link to='/login'>Log In</Link>
 								</li>
-								<li className={styles.leftLink}>
+								<li className={styles.rightLink}>
 									<Link to='/register'>Register</Link>
 								</li>
 							</>
 						)}
 						{isAuthenticated && (
 							<>
-								<li className={styles.leftLink}>
+								<li className={styles.rightLink}>
 									<Link to='/scores'>Scores</Link>
 								</li>
 								<li
-									className={`${styles.leftLink} ${styles.textButton}`}
+									className={`${styles.rightLink} ${styles.textButton}`}
 									onClick={() => logout()}
 								>
 									Log Out
@@ -45,7 +45,7 @@ const Nav: React.FC<IProps> = ({ setInstructionModalOpen }) => {
 							</>
 						)}
 						<li
-							className={`${styles.leftLink} ${styles.textButton}`}
+							className={`${styles.rightLink} ${styles.textButton}`}
 							onClick={() => setInstructionModalOpen((prev) => !prev)}
 						>
 							Rules

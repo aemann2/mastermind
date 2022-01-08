@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Results } from '../types/types';
+import Button from '../ui/Button';
 import { compareSequence, digitCheck } from '../utils/utils';
 import styles from '../styles/Numbers.module.scss';
 interface IProps {
@@ -102,9 +103,9 @@ const Numbers: React.FC<IProps> = ({
 		<div className={styles.numbers}>
 			<form onSubmit={handleSubmit}>
 				<div className={styles.inputs}>{inputs}</div>
-				<button disabled={gameEndModalOpen || numberOfGuesses > 10}>
+				<Button disabled={gameEndModalOpen || numberOfGuesses > 10}>
 					Submit
-				</button>
+				</Button>
 			</form>
 		</div>
 	);

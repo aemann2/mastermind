@@ -1,4 +1,5 @@
 import Modal from '../ui/Modal';
+import Button from '../ui/Button';
 import styles from '../styles/InstructionsModal.module.scss';
 
 interface IProps {
@@ -10,6 +11,10 @@ const InstructionsModal: React.FC<IProps> = ({
 	instructionModalOpen,
 	setInstructionModalOpen,
 }) => {
+	const closeModal = () => {
+		setInstructionModalOpen((prev) => !prev);
+	};
+
 	return (
 		<>
 			{instructionModalOpen && (
@@ -37,9 +42,7 @@ const InstructionsModal: React.FC<IProps> = ({
 								not included in the <span className='bold'>'N'</span> count.)
 							</li>
 						</ul>
-						<button onClick={() => setInstructionModalOpen((prev) => !prev)}>
-							Close
-						</button>
+						<Button onClick={closeModal}>Close</Button>
 					</div>
 				</Modal>
 			)}
