@@ -5,32 +5,37 @@ interface IProps {
 }
 
 const GuessHistory: React.FC<IProps> = ({ guessSequence }) => {
+	const guessSequenceReversed = [...guessSequence].reverse();
+
 	return (
-		<div className={styles.guessHistory}>
-			{guessSequence.length > 0 && <h3>Previous Guesses:</h3>}
+		<section className={styles.guessHistory}>
+			{guessSequence.length > 0 && <h3>Previous Guesses</h3>}
 			<div className={styles.guessHistoryWrapper}>
-				{guessSequence &&
-					guessSequence.map((guess, index) => (
-						<div
-							className={styles.guessItem}
-							data-testid='guessItem'
-							key={index}
-						>
-							<div>
-								<span>{guess.guessSequence} </span>
-							</div>
-							<div>
-								<span>
-									<span className={styles.guessStat}>N: </span>
-									<span>{guess.N}</span>
-									<span className={styles.guessStat}> L: </span>
-									<span>{guess.L}</span>
-								</span>
-							</div>
-						</div>
-					))}
+				<ol>
+					{guessSequence &&
+						guessSequenceReversed.map((guess, index) => (
+							<li
+								className={styles.guessItem}
+								data-testid='guessItem'
+								key={index}
+							>
+								<div>
+									<span>{Math.abs(index - guessSequence.length)}. </span>
+									<span>{guess.guessSequence} </span>
+								</div>
+								<div>
+									<span>
+										<span className={styles.guessStat}>N: </span>
+										<span>{guess.N}</span>
+										<span className={styles.guessStat}> L: </span>
+										<span>{guess.L}</span>
+									</span>
+								</div>
+							</li>
+						))}
+				</ol>
 			</div>
-		</div>
+		</section>
 	);
 };
 
