@@ -25,7 +25,6 @@ const Scores = () => {
 			'https://mastermind-amann.herokuapp.com/api/scores'
 		);
 		setScores(res.data.data);
-		console.log(res.data.data);
 	}
 
 	return (
