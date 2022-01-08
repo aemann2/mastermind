@@ -9,32 +9,49 @@ interface IProps {
 }
 
 const Nav: React.FC<IProps> = ({ setInstructionModalOpen }) => {
-	const { isAuthenticated, logout, user } = useContext(AuthContext);
+	const { isAuthenticated, logout } = useContext(AuthContext);
 
 	return (
 		<div className={styles.navBar}>
 			<nav>
-				<div>
-					<Link to='/'>Mastermind</Link>
-					{user && <p>{user.email}</p>}
-				</div>
-				<div>
-					{!isAuthenticated && (
-						<>
-							<Link to='/login'>Log In</Link>
-							<Link to='/register'>Register</Link>
-						</>
-					)}
-					{isAuthenticated && (
-						<>
-							<Link to='/scores'>Your Scores</Link>
-							<button onClick={() => logout()}>Log Out</button>
-						</>
-					)}
-					<button onClick={() => setInstructionModalOpen((prev) => !prev)}>
-						Instructions
-					</button>
-				</div>
+				<ul>
+					<div>
+						<li className={styles.mainLink}>
+							<Link to='/'>Mastermind</Link>
+						</li>
+					</div>
+					<div>
+						{!isAuthenticated && (
+							<>
+								<li className={styles.leftLink}>
+									<Link to='/login'>Log In</Link>
+								</li>
+								<li className={styles.leftLink}>
+									<Link to='/register'>Register</Link>
+								</li>
+							</>
+						)}
+						{isAuthenticated && (
+							<>
+								<li className={styles.leftLink}>
+									<Link to='/scores'>Scores</Link>
+								</li>
+								<li
+									className={`${styles.leftLink} ${styles.textButton}`}
+									onClick={() => logout()}
+								>
+									Log Out
+								</li>
+							</>
+						)}
+						<li
+							className={`${styles.leftLink} ${styles.textButton}`}
+							onClick={() => setInstructionModalOpen((prev) => !prev)}
+						>
+							Rules
+						</li>
+					</div>
+				</ul>
 			</nav>
 		</div>
 	);
