@@ -1,4 +1,5 @@
 import Modal from '../ui/Modal';
+import styles from '../styles/GameEndModal.module.scss';
 
 interface IProps {
 	resetGame: () => void;
@@ -14,7 +15,10 @@ const GameEndModal: React.FC<IProps> = ({
 		<>
 			{gameEndModalOpen && (
 				<Modal>
-					{children} <button onClick={resetGame}>Close</button>
+					<div className={styles.modal}>
+						{children}
+						<button onClick={resetGame}>Close</button>
+					</div>
 				</Modal>
 			)}
 		</>

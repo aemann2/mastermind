@@ -88,7 +88,10 @@ function Index() {
 						gameEndModalOpen={gameEndModalOpen}
 						resetGame={resetGame}
 					>
-						<p>You won in {numberOfGuesses} guesses!</p>
+						<h3>
+							You won in {numberOfGuesses}
+							{numberOfGuesses > 1 ? ' guesses' : ' guess'}!
+						</h3>
 						<p>Close this window to try again.</p>
 					</GameEndModal>
 				) : (
@@ -96,7 +99,7 @@ function Index() {
 						gameEndModalOpen={gameEndModalOpen}
 						resetGame={resetGame}
 					>
-						<p>Aww, you lost this time.</p>
+						<h3>Aww, you lost this time.</h3>
 						<p>Close this window to try again.</p>
 					</GameEndModal>
 				)}
