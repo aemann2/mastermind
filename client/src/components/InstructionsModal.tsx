@@ -1,4 +1,5 @@
 import Modal from '../ui/Modal';
+import styles from '../styles/InstructionsModal.module.scss';
 
 interface IProps {
 	instructionModalOpen: boolean;
@@ -13,9 +14,10 @@ const InstructionsModal: React.FC<IProps> = ({
 		<>
 			{instructionModalOpen && (
 				<Modal>
-					<div>
-						<p>Welcome to Mastermind! Here's how to play:</p>
-						<ul>
+					<div className={styles.modalText}>
+						<h3>Welcome to Mastermind!</h3>
+						<h4>Here's how to play:</h4>
+						<ul className={styles.rulesList}>
 							<li>
 								There's a mystery sequence of 4 numbers. Your job is to guess
 								what the sequence is within 10 tries.
@@ -25,19 +27,20 @@ const InstructionsModal: React.FC<IProps> = ({
 								sequence. Hit 'Submit' to check your guess.
 							</li>
 							<li>
-								The 'N' count is the number of digits in your guess that are
-								present in the mystery sequence.
+								The <span className='bold'>'N'</span> count is the number of
+								digits in your guess that are present in the mystery sequence.
 							</li>
 							<li>
-								The 'L' count is the number of digits in your guess that are in
-								the right position. (If a number is in the 'L' count, it is not
-								included in the 'N' count.)
+								The <span className='bold'>'L'</span> count is the number of
+								digits in your guess that are in the right position. (If a
+								number is in the <span className='bold'>'L'</span> count, it is
+								not included in the <span className='bold'>'N'</span> count.)
 							</li>
 						</ul>
+						<button onClick={() => setInstructionModalOpen((prev) => !prev)}>
+							Close
+						</button>
 					</div>
-					<button onClick={() => setInstructionModalOpen((prev) => !prev)}>
-						Close
-					</button>
 				</Modal>
 			)}
 		</>
