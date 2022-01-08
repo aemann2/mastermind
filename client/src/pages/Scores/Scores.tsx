@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { setAuthToken } from '../../utils/utils';
+// import { setAuthToken } from '../../utils/utils';
 
 interface Score {
 	_id: string;
@@ -12,9 +12,9 @@ interface Score {
 const Scores = () => {
 	const [scores, setScores] = useState<Score[] | []>([]);
 
-	if (localStorage.token) {
-		setAuthToken(localStorage.token);
-	}
+	// if (localStorage.token) {
+	// 	setAuthToken(localStorage.token);
+	// }
 
 	useEffect(() => {
 		getScores();
