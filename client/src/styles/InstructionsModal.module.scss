@@ -8,11 +8,20 @@
 		text-align: center;
 	}
 
+	h4 {
+		margin-top: 0.5rem;
+	}
+
 	li {
 		margin-top: 1rem;
 	}
 
 	.bold {
 		font-weight: bold;
+	}
+
+	button {
+		display: block;
+		margin: 0 auto;
 	}
 }
