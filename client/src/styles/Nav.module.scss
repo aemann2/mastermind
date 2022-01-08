@@ -11,6 +11,9 @@
 
 	li {
 		display: inline;
+		:hover {
+			color: yellow;
+		}
 	}
 
 	.mainLink {
@@ -25,5 +28,8 @@
 
 	.textButton {
 		cursor: pointer;
+		&:hover {
+			color: yellow !important;
+		}
 	}
 }
