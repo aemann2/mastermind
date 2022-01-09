@@ -29,7 +29,7 @@ export const AuthContext = createContext({
 	login: (email: string, password: string) => {},
 	logout: () => {},
 	loadUser: () => {},
-	// clearError: () => {},
+	setError: (error: string) => {},
 });
 
 const AuthProvider: React.FC<IProps> = ({ children }) => {
@@ -85,13 +85,6 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
 		}
 	};
 
-	// // Clear error
-	// const clearError = () => {
-	// 	dispatch({
-	// 		type: 'CLEAR_ERROR',
-	// 	});
-	// };
-
 	// Login User
 	const login = async (email: string, password: string) => {
 		const config = {
@@ -126,6 +119,11 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
 		dispatch({ type: 'LOGOUT' });
 	};
 
+	// Set error
+	const setError = (error: string) => {
+		dispatch({ type: 'SET_ERROR', payload: error });
+	};
+
 	return (
 		<AuthContext.Provider
 			value={{
@@ -138,7 +136,7 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
 				login,
 				logout,
 				loadUser,
-				// clearError,
+				setError,
 			}}
 		>
 			{children}

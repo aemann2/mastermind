@@ -4,7 +4,7 @@ import Button from '../ui/Button';
 import styles from '../styles/RegisterForm.module.scss';
 
 const RegisterForm = () => {
-	const { register, error } = useContext(AuthContext);
+	const { register, setError, error } = useContext(AuthContext);
 
 	const [user, setUser] = useState({
 		email: '',
@@ -20,6 +20,10 @@ const RegisterForm = () => {
 
 	const onSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		if (password !== password2) {
+			setError('Passwords do not match');
+			return;
+		}
 		await register(email, password);
 	};
 
