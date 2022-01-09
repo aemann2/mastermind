@@ -29,12 +29,22 @@ const Scores = () => {
 
 	return (
 		<div>
-			Scores:
-			{scores.map((score) => (
-				<div key={score._id}>
-					<p>{score.sequence}</p>
+			Your Score History:
+			{scores && (
+				<div>
+					{scores.map((score) => {
+						const { guesses, sequence, solved } = score;
+
+						return (
+							<div key={score._id}>
+								<p>Sequence: {sequence}</p>
+								<p>Guesses: {guesses}</p>
+								<p>Solved: {solved ? 'Yes' : 'No'}</p>
+							</div>
+						);
+					})}
 				</div>
-			))}
+			)}
 		</div>
 	);
 };
