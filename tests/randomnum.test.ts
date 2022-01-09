@@ -6,7 +6,7 @@ let chaiHttp = require('chai-http');
 chai.should();
 chai.use(chaiHttp);
 
-describe('Testing randomnum route', () => {
+describe('Testing randomnum route GET', () => {
 	it('Should return a 4 digit number', (done) => {
 		chai
 			.request(server)

@@ -6,7 +6,7 @@ let chaiHttp = require('chai-http');
 chai.should();
 chai.use(chaiHttp);
 
-describe('Testing signup route', () => {
+describe('Testing signup route POST', () => {
 	it('Should return a 400 error if email is not submitted', (done) => {
 		chai
 			.request(server)
