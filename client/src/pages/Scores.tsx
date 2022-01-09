@@ -11,7 +11,7 @@ interface Score {
 }
 
 const Scores = () => {
-	const [scores, setScores] = useState<Score[] | []>([]);
+	const [scores, setScores] = useState<Score[] | null>(null);
 
 	useEffect(() => {
 		getScores();
@@ -27,35 +27,48 @@ const Scores = () => {
 	return (
 		<>
 			<Nav />
-			<div className={styles.scoresWrapper}>
-				<h2>Your Score History</h2>
-				{scores && (
-					<div className={styles.scores}>
-						{scores.map((score, index) => {
-							const { guesses, sequence, solved } = score;
+			{scores ? (
+				<div className={styles.scoresWrapper}>
+					<h2>Your Score History</h2>
+					{scores && (
+						<div className={styles.scores}>
+							{scores.length > 0 ? (
+								scores.map((score, index) => {
+									const { guesses, sequence, solved } = score;
 
-							return (
-								<div className={styles.score} key={score._id}>
-									<p className={styles.bold}>
-										{Math.abs(index - scores.length)}.
-									</p>
-									<p>
-										<span className={styles.bold}>Sequence:</span> {sequence}
-									</p>
-									<p>
-										<span className={styles.bold}>Guesses:</span> {guesses}
-									</p>
-									<p>
-										<span className={styles.bold}>Solved:</span>{' '}
-										{solved ? 'Yes' : 'No'}
-									</p>
-									{index === scores.length - 1 ? null : <hr />}
-								</div>
-							);
-						})}
-					</div>
-				)}
-			</div>
+									return (
+										<div className={styles.score} key={score._id}>
+											<p className={styles.bold}>
+												{Math.abs(index - scores.length)}.
+											</p>
+											<p>
+												<span className={styles.bold}>Sequence:</span>{' '}
+												{sequence}
+											</p>
+											<p>
+												<span className={styles.bold}>Guesses:</span> {guesses}
+											</p>
+											<p>
+												<span className={styles.bold}>Solved:</span>{' '}
+												{solved ? 'Yes' : 'No'}
+											</p>
+											{index === scores.length - 1 ? null : <hr />}
+										</div>
+									);
+								})
+							) : (
+								<p className={styles.noGames}>
+									You haven't played any games yet!
+								</p>
+							)}
+						</div>
+					)}
+				</div>
+			) : (
+				<div className={styles.scoresWrapper}>
+					<h4 className={styles.loading}>Loading...</h4>
+				</div>
+			)}
 		</>
 	);
 };
