@@ -22,7 +22,9 @@ const GuessHistory: React.FC<IProps> = ({ guessSequence }) => {
 										key={index}
 									>
 										<div>
-											<span>{Math.abs(index - guessSequence.length)}. </span>
+											<span className={styles.guessStat}>
+												{Math.abs(index - guessSequence.length)}.{' '}
+											</span>
 											<span>{guess.guessSequence} </span>
 										</div>
 										<div>

@@ -33,3 +33,14 @@
 		}
 	}
 }
+
+@media only screen and (min-width: 600px) {
+	.navBar {
+		.mainLink {
+			font-size: 2rem;
+		}
+		.rightLink {
+			font-size: 1.2rem;
+		}
+	}
+}

@@ -19,6 +19,17 @@
 	}
 
 	.guessStat {
-		font-weight: bolder;
+		font-weight: 600;
+	}
+}
+
+@media only screen and (min-width: 600px) {
+	.guessHistory {
+		h3 {
+			font-size: clamp(1.3rem, 3vw, 2.5rem);
+		}
+	}
+	.guessItem {
+		font-size: 1.3rem;
 	}
 }
