@@ -62,15 +62,14 @@ const Numbers: React.FC<IProps> = ({
 	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const value = e.target.value;
 		if (!digitCheck(parseInt(value))) {
-			return false;
+			e.target.select();
 		} else {
 			setInputs({
 				...inputValues,
 				[e.target.name]: parseInt(value),
 			});
+			e.target.select();
 		}
-		e.target.selectionStart = 0;
-		e.target.selectionEnd = 0;
 	}
 
 	useEffect(() => {
