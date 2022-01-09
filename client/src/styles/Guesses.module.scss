@@ -1,0 +1,5 @@
+@media only screen and (min-width: 600px) {
+	.guesses {
+		font-size: clamp(1rem, 4vw, 3rem);
+	}
+}

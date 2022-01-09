@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Index from './pages/Index/Index';
-import Login from './pages/Login/Login';
-import Register from './pages/Register/Register';
-import Scores from './pages/Scores/Scores';
+import Index from './pages/Index';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Scores from './pages/Scores';
 import PrivateRoute from './routing/PrivateRoute';
 import AuthProvider from './context/auth/authProvider';
 import { setAuthToken } from './utils/utils';

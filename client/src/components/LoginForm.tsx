@@ -1,4 +1,6 @@
 import React, { useState, useContext } from 'react';
+import Button from '../ui/Button';
+import styles from '../styles/LoginForm.module.scss';
 import { AuthContext } from '../context/auth/authProvider';
 
 const LoginForm = () => {
@@ -21,28 +23,34 @@ const LoginForm = () => {
 	};
 
 	return (
-		<div>
+		<div className={styles.loginForm}>
 			<h1>Log In</h1>
 			<form onSubmit={onSubmit}>
-				<label htmlFor='email'>Email</label>
-				<input
-					type='text'
-					name='email'
-					value={email}
-					onChange={onChange}
-					required
-				></input>
-				<label htmlFor='email'>Password</label>
-				<input
-					type='password'
-					name='password'
-					value={password}
-					onChange={onChange}
-					required
-				></input>
-				<button>Submit</button>
+				<div>
+					<label htmlFor='email'>Email</label>
+					<input
+						type='text'
+						name='email'
+						placeholder='Enter your email'
+						value={email}
+						onChange={onChange}
+						required
+					/>
+				</div>
+				<div>
+					<label htmlFor='email'>Password</label>
+					<input
+						type='password'
+						name='password'
+						placeholder='Enter your password'
+						value={password}
+						onChange={onChange}
+						required
+					/>
+				</div>
+				<Button>Log In</Button>
 			</form>
-			{error && <p>{error}</p>}
+			{error && <p className={styles.error}>{error}</p>}
 		</div>
 	);
 };

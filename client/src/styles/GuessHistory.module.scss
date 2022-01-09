@@ -1,10 +1,16 @@
 .guessHistory {
 	h3 {
-		font-size: 1rem;
+		font-size: 1.3rem;
+		text-decoration: underline;
 	}
 
 	.guessHistoryWrapper {
+		margin-top: 0.5rem;
+		padding: 0.5rem;
 		background-color: #ebebeb;
+		border-radius: 4px;
+		border: 1px solid black;
+		color: rgb(44, 44, 44);
 	}
 
 	.guessItem {
@@ -13,6 +19,17 @@
 	}
 
 	.guessStat {
-		font-weight: bolder;
+		font-weight: 600;
+	}
+}
+
+@media only screen and (min-width: 600px) {
+	.guessHistory {
+		h3 {
+			font-size: clamp(1.3rem, 3vw, 2.5rem);
+		}
+	}
+	.guessItem {
+		font-size: 1.3rem;
 	}
 }

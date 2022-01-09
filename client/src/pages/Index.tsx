@@ -1,14 +1,14 @@
 import { useState, useEffect, useContext, useRef } from 'react';
 import axios from 'axios';
-import Guesses from '../../components/Guesses';
-import Numbers from '../../components/Numbers';
-import GameEndModal from '../../components/GameEndModal';
-import InstructionsModal from '../../components/InstructionsModal';
-import GuessHistory from '../../components/GuessHistory';
-import Nav from '../../components/Nav';
-import { AuthContext } from '../../context/auth/authProvider';
-import { Results } from '../../types/types';
-import styles from '../../styles/Index.module.scss';
+import Guesses from '../components/Guesses';
+import Numbers from '../components/Numbers';
+import GameEndModal from '../components/GameEndModal';
+import InstructionsModal from '../components/InstructionsModal';
+import GuessHistory from '../components/GuessHistory';
+import Nav from '../components/Nav';
+import { AuthContext } from '../context/auth/authProvider';
+import { Results } from '../types/types';
+import styles from '../styles/pages/Index.module.scss';
 
 function Index() {
 	const [sequence, setSequence] = useState<number[] | null>(null);
@@ -34,8 +34,13 @@ function Index() {
 
 	useEffect(() => {
 		getSequence();
-		loadUserRef.current();
 	}, []);
+
+	useEffect(() => {
+		if (isAuthenticated) {
+			loadUserRef.current();
+		}
+	}, [isAuthenticated]);
 
 	useEffect(() => {
 		if (numberOfGuesses >= 10) {
@@ -88,7 +93,10 @@ function Index() {
 						gameEndModalOpen={gameEndModalOpen}
 						resetGame={resetGame}
 					>
-						<p>You won in {numberOfGuesses} guesses!</p>
+						<h3>
+							You won in {numberOfGuesses}
+							{numberOfGuesses > 1 ? ' guesses' : ' guess'}!
+						</h3>
 						<p>Close this window to try again.</p>
 					</GameEndModal>
 				) : (
@@ -96,7 +104,7 @@ function Index() {
 						gameEndModalOpen={gameEndModalOpen}
 						resetGame={resetGame}
 					>
-						<p>Aww, you lost this time.</p>
+						<h3>Aww, you lost this time.</h3>
 						<p>Close this window to try again.</p>
 					</GameEndModal>
 				)}

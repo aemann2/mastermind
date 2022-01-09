@@ -1,7 +1,46 @@
 .navBar {
 	nav {
+		padding: 0.5rem 1rem;
+	}
+	ul {
+		width: 100%;
 		display: flex;
-		flex-direction: row;
 		justify-content: space-between;
+		align-items: center;
+	}
+
+	li {
+		display: inline;
+		:hover {
+			color: yellow;
+		}
+	}
+
+	.mainLink {
+		font-size: 1.5rem;
+		font-weight: 500;
+	}
+
+	.rightLink {
+		margin-left: 0.5rem;
+		font-size: 0.9rem;
+	}
+
+	.textButton {
+		cursor: pointer;
+		&:hover {
+			color: yellow !important;
+		}
+	}
+}
+
+@media only screen and (min-width: 600px) {
+	.navBar {
+		.mainLink {
+			font-size: 2rem;
+		}
+		.rightLink {
+			font-size: 1.2rem;
+		}
 	}
 }
