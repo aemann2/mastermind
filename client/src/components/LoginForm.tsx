@@ -27,10 +27,13 @@ const LoginForm = () => {
 			<h1>Log In</h1>
 			<form onSubmit={onSubmit}>
 				<div>
-					<label htmlFor='email'>Email</label>
+					<label id='email' htmlFor='email'>
+						Email
+					</label>
 					<input
 						type='text'
 						name='email'
+						aria-labelledby='email'
 						placeholder='Enter your email'
 						value={email}
 						onChange={onChange}
@@ -38,10 +41,13 @@ const LoginForm = () => {
 					/>
 				</div>
 				<div>
-					<label htmlFor='email'>Password</label>
+					<label id='password' htmlFor='password'>
+						Password
+					</label>
 					<input
 						type='password'
 						name='password'
+						aria-labelledby='password'
 						placeholder='Enter your password'
 						value={password}
 						onChange={onChange}

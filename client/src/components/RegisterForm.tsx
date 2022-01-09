@@ -31,27 +31,36 @@ const RegisterForm = () => {
 		<div className={styles.registerForm}>
 			<h1>Register</h1>
 			<form onSubmit={onSubmit}>
-				<label htmlFor='email'>Email</label>
+				<label id='email' htmlFor='email'>
+					Email
+				</label>
 				<input
 					type='email'
 					name='email'
+					aria-labelledby='email'
 					value={email}
 					onChange={onChange}
 					required
 				></input>
-				<label htmlFor='email'>Password</label>
+				<label id='password1' htmlFor='password1'>
+					Password
+				</label>
 				<input
 					type='password'
-					name='password'
+					name='password1'
+					aria-labelledby='password1'
 					value={password}
 					onChange={onChange}
 					required
 					minLength={6}
 				></input>
-				<label htmlFor='email'>Confirm Password</label>
+				<label id='password2' htmlFor='password2'>
+					Confirm Password
+				</label>
 				<input
 					type='password'
 					name='password2'
+					aria-labelledby='password2'
 					value={password2}
 					onChange={onChange}
 					required
