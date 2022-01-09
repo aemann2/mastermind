@@ -48,3 +48,19 @@
 		font-weight: 600;
 	}
 }
+
+@media only screen and (min-width: 600px) {
+	.scoresWrapper {
+		h2 {
+			font-size: clamp(2rem, 3vw, 2.3rem);
+		}
+
+		hr {
+			border-top: 2px solid black;
+		}
+
+		.scores {
+			font-size: 1.3rem;
+		}
+	}
+}
