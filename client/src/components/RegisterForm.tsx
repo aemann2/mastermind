@@ -1,5 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/auth/authProvider';
+import Button from '../ui/Button';
+import styles from '../styles/RegisterForm.module.scss';
 
 const RegisterForm = () => {
 	const { register, error } = useContext(AuthContext);
@@ -22,7 +24,7 @@ const RegisterForm = () => {
 	};
 
 	return (
-		<div>
+		<div className={styles.registerForm}>
 			<h1>Register</h1>
 			<form onSubmit={onSubmit}>
 				<label htmlFor='email'>Email</label>
@@ -51,9 +53,9 @@ const RegisterForm = () => {
 					required
 					minLength={6}
 				></input>
-				<button>Submit</button>
+				<Button>Register</Button>
 			</form>
-			{error && <p>{error}</p>}
+			{error && <p className={styles.error}>{error}</p>}
 		</div>
 	);
 };
