@@ -70,6 +70,7 @@ function Index() {
 		setGuessSequence([]);
 		setNumberOfGuesses(0);
 		setGameEndModalOpen(false);
+		setSequence(null);
 		getSequence();
 	};
 

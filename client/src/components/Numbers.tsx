@@ -103,9 +103,13 @@ const Numbers: React.FC<IProps> = ({
 		<div className={styles.numbers}>
 			<form onSubmit={handleSubmit}>
 				<div className={styles.inputs}>{inputs}</div>
-				<Button disabled={gameEndModalOpen || numberOfGuesses > 10}>
-					Submit
-				</Button>
+				{sequence ? (
+					<Button disabled={gameEndModalOpen || numberOfGuesses > 10}>
+						Submit
+					</Button>
+				) : (
+					<h4 className={styles.loading}>Loading numbers...</h4>
+				)}
 			</form>
 		</div>
 	);
