@@ -1,14 +1,14 @@
 import { useState, useEffect, useContext, useRef } from 'react';
 import axios from 'axios';
-import Guesses from '../../components/Guesses';
-import Numbers from '../../components/Numbers';
-import GameEndModal from '../../components/GameEndModal';
-import InstructionsModal from '../../components/InstructionsModal';
-import GuessHistory from '../../components/GuessHistory';
-import Nav from '../../components/Nav';
-import { AuthContext } from '../../context/auth/authProvider';
-import { Results } from '../../types/types';
-import styles from '../../styles/pages/Index.module.scss';
+import Guesses from '../components/Guesses';
+import Numbers from '../components/Numbers';
+import GameEndModal from '../components/GameEndModal';
+import InstructionsModal from '../components/InstructionsModal';
+import GuessHistory from '../components/GuessHistory';
+import Nav from '../components/Nav';
+import { AuthContext } from '../context/auth/authProvider';
+import { Results } from '../types/types';
+import styles from '../styles/pages/Index.module.scss';
 
 function Index() {
 	const [sequence, setSequence] = useState<number[] | null>(null);
