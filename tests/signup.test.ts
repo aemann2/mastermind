@@ -6,7 +6,7 @@ let chaiHttp = require('chai-http');
 chai.should();
 chai.use(chaiHttp);
 
-describe('/post auth', () => {
+describe('Testing signup route', () => {
 	it('Should return a 400 error if email is not submitted', (done) => {
 		chai
 			.request(server)
