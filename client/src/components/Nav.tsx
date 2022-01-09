@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/auth/authProvider';
 import styles from '../styles/Nav.module.scss';
 
 interface IProps {
-	setInstructionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+	setInstructionModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Nav: React.FC<IProps> = ({ setInstructionModalOpen }) => {
 	const { isAuthenticated, logout } = useContext(AuthContext);
+	const location = useLocation();
 
 	return (
 		<div className={styles.navBar}>
@@ -44,12 +46,14 @@ const Nav: React.FC<IProps> = ({ setInstructionModalOpen }) => {
 								</li>
 							</>
 						)}
-						<li
-							className={`${styles.rightLink} ${styles.textButton}`}
-							onClick={() => setInstructionModalOpen((prev) => !prev)}
-						>
-							Rules
-						</li>
+						{location.pathname === '/' && (
+							<li
+								className={`${styles.rightLink} ${styles.textButton}`}
+								onClick={() => setInstructionModalOpen!((prev) => !prev)}
+							>
+								Rules
+							</li>
+						)}
 					</div>
 				</ul>
 			</nav>
