@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/auth/authProvider';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from '../../components/LoginForm';
+import styles from '../../styles/pages/Login.module.scss';
 
 const Login = () => {
 	const { isAuthenticated } = useContext(AuthContext);
@@ -14,7 +15,7 @@ const Login = () => {
 	}, [isAuthenticated, navigate]);
 
 	return (
-		<div>
+		<div className={styles.login}>
 			<LoginForm />
 		</div>
 	);

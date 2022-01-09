@@ -8,7 +8,7 @@ import GuessHistory from '../../components/GuessHistory';
 import Nav from '../../components/Nav';
 import { AuthContext } from '../../context/auth/authProvider';
 import { Results } from '../../types/types';
-import styles from '../../styles/Index.module.scss';
+import styles from '../../styles/pages/Index.module.scss';
 
 function Index() {
 	const [sequence, setSequence] = useState<number[] | null>(null);
