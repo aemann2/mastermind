@@ -1,0 +1,50 @@
+.scoresWrapper {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	/* width */
+	::-webkit-scrollbar {
+		width: 10px;
+	}
+
+	/* Track */
+	::-webkit-scrollbar-track {
+		background: #ebebeb;
+	}
+
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+		background: #888;
+		border-radius: 10px;
+	}
+
+	h2 {
+		text-align: center;
+	}
+
+	hr {
+		margin-top: 1rem;
+	}
+
+	.scores {
+		height: 20rem;
+		width: 350px;
+		overflow-y: scroll;
+		margin: 0.5rem auto 0 auto;
+		padding: 0.5rem;
+		background-color: #ebebeb;
+		border-radius: 4px;
+		border: 1px solid black;
+		color: rgb(44, 44, 44);
+	}
+
+	.score {
+		margin-top: 1rem;
+	}
+
+	.bold {
+		font-weight: 600;
+	}
+}

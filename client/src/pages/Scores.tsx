@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import styles from '../styles/pages/Scores.module.scss';
 // import { setAuthToken } from '../../utils/utils';
 
 interface Score {
@@ -28,18 +29,29 @@ const Scores = () => {
 	}
 
 	return (
-		<div>
-			Your Score History:
+		<div className={styles.scoresWrapper}>
+			<h2>Your Score History</h2>
 			{scores && (
-				<div>
-					{scores.map((score) => {
+				<div className={styles.scores}>
+					{scores.map((score, index) => {
 						const { guesses, sequence, solved } = score;
 
 						return (
-							<div key={score._id}>
-								<p>Sequence: {sequence}</p>
-								<p>Guesses: {guesses}</p>
-								<p>Solved: {solved ? 'Yes' : 'No'}</p>
+							<div className={styles.score} key={score._id}>
+								<p className={styles.bold}>
+									{Math.abs(index - scores.length)}.
+								</p>
+								<p>
+									<span className={styles.bold}>Sequence:</span> {sequence}
+								</p>
+								<p>
+									<span className={styles.bold}>Guesses:</span> {guesses}
+								</p>
+								<p>
+									<span className={styles.bold}>Solved:</span>{' '}
+									{solved ? 'Yes' : 'No'}
+								</p>
+								{index === scores.length - 1 ? null : <hr />}
 							</div>
 						);
 					})}
