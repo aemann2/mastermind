@@ -2,7 +2,7 @@
 
 <a href="https://mastermind-amann.herokuapp.com/" target="_blank"><img src='https://user-images.githubusercontent.com/68879246/148705683-bb78e424-3d6c-43e5-8cae-71366fd55f61.mov' alt='Mastermind'></a>
 
-## **Mastermind** is a number guessing game where a player tries to guess a series of numbers within 10 turns.
+**Mastermind** is a number guessing game where a player tries to guess a series of numbers within 10 turns. Users can register to create an account, and scores will be tracked using a MongoDB database. Users can see the history of their scores on the 'Scores' page after logging in.
 
 ## Running the project locally
 
