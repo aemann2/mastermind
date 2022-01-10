@@ -106,6 +106,9 @@ function Index() {
 						resetGame={resetGame}
 					>
 						<h3>Aww, you lost this time.</h3>
+						<h3>
+							The sequence was: <span className={styles.bold}>{sequence}</span>
+						</h3>
 						<p>Close this window to try again.</p>
 					</GameEndModal>
 				)}
