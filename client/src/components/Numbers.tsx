@@ -40,7 +40,8 @@ const Numbers: React.FC<IProps> = ({
 			<input
 				className={styles.inputBox}
 				key={`input ${i}`}
-				type='number'
+				// using telephone type...a trick to get around problems with digit entry
+				type='tel'
 				id={`${i}`}
 				name={`${i}`}
 				min={0}
@@ -54,16 +55,21 @@ const Numbers: React.FC<IProps> = ({
 
 	// focus input box on first click
 	function handleFocus(e: React.FocusEvent<HTMLInputElement>) {
+		e.target.focus();
 		e.target.select();
 	}
 
 	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const value = e.target.value;
-		if (!digitCheck(parseInt(value))) return false;
-		setInputs({
-			...inputValues,
-			[e.target.name]: parseInt(value),
-		});
+		if (!digitCheck(parseInt(value))) {
+			e.target.select();
+		} else {
+			setInputs({
+				...inputValues,
+				[e.target.name]: parseInt(value),
+			});
+			e.target.select();
+		}
 	}
 
 	useEffect(() => {
@@ -103,9 +109,13 @@ const Numbers: React.FC<IProps> = ({
 		<div className={styles.numbers}>
 			<form onSubmit={handleSubmit}>
 				<div className={styles.inputs}>{inputs}</div>
-				<Button disabled={gameEndModalOpen || numberOfGuesses > 10}>
-					Submit
-				</Button>
+				{sequence ? (
+					<Button disabled={gameEndModalOpen || numberOfGuesses > 10}>
+						Submit
+					</Button>
+				) : (
+					<h4 className={styles.loading}>Loading numbers...</h4>
+				)}
 			</form>
 		</div>
 	);

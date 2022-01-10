@@ -29,8 +29,8 @@ const InstructionsModal: React.FC<IProps> = ({
 								10 tries.
 							</li>
 							<li>
-								Enter a number in each box to make a guess at the mystery
-								sequence. Hit 'Submit' to check your guess.
+								Enter a number (0 - 7) in each box to make a guess at the
+								mystery sequence. Hit 'Submit' to check your guess.
 							</li>
 							<li>
 								The <span className={styles.bold}>'N'</span> count is the number

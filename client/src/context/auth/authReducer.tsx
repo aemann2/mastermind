@@ -22,7 +22,8 @@ interface AuthAction {
 		| 'AUTH_ERROR'
 		| 'LOGIN_SUCCESS'
 		| 'LOGIN_FAIL'
-		| 'LOGOUT';
+		| 'LOGOUT'
+		| 'SET_ERROR';
 	payload?: any;
 }
 
@@ -49,6 +50,7 @@ const AuthReducer = (state: IState, action: AuthAction) => {
 			return {
 				...state,
 				...action.payload,
+				error: null,
 				isAuthenticated: true,
 				loading: false,
 			};
@@ -64,11 +66,14 @@ const AuthReducer = (state: IState, action: AuthAction) => {
 				user: null,
 				error: action.payload,
 			};
-		// case 'CLEAR_ERROR':
-		// 	return {
-		// 		...state,
-		// 		error: null,
-		// 	};
+		case 'SET_ERROR':
+			return {
+				...state,
+				token: null,
+				isAuthenticated: false,
+				user: null,
+				error: action.payload,
+			};
 		default:
 			return state;
 	}

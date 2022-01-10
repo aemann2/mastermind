@@ -1,3 +1,46 @@
+# [Mastermind](https://mastermind-amann.herokuapp.com/)
+
+<a href="https://mastermind-amann.herokuapp.com/" target="_blank"><img src='https://user-images.githubusercontent.com/68879246/148705683-bb78e424-3d6c-43e5-8cae-71366fd55f61.mov' alt='Mastermind'></a>
+
+**Mastermind** is a number guessing game where a player tries to guess a series of numbers within 10 turns. Users can register to create an account, and scores will be tracked using a MongoDB database. Users can see the history of their scores on the 'Scores' page after logging in.
+
+## Running the project locally
+
+- Clone or download the repo (e.g, `gh repo clone aemann2/mastermind`)
+- From the root directory, install backend dependencies using `yarn install`
+- In the `/client` directory, install frontend dependencies using `yarn install`
+- To run the frontend: run `yarn start` in the `/client` directory. The Frontend is configured to run using the deployed application, so it should start on `http://localhost:3000` without having to start the backend
+- To run the backend: run `yarn start` in the root directory. Note the .env.sample file in `/config`. In order for the backend to connect to a database, you must fill in the missing MONGO_URI and JWT_SECRET variables with your own. The backend will run on `http://localhost:5000`.
+- To run frontend tests: run `yarn test` in the `/client` directory
+- To run backend tests: run `yarn test` in the root directory
+
+## Game rules:
+
+- At the start of the game the computer will randomly select a pattern of four different numbers from a total of 8 different numbers (the numbers 0 - 7).
+- A player will have 10 attempts to guess the number combinations
+- At the end of each guess, the computer will provide a response with the following feedback:
+  - The player guessed a correct number, but in the wrong location
+  - The player guessed a correct number in the correct location
+  - The player’s guess was incorrect
+
+## Technology:
+
+### Backend:
+
+Typescript, Node.js, Express, Mongoose, MongoDB, bcrypt, jwt, Mocha, Chai
+
+### Frontend:
+
+React, Typescript, CSS Modules, React Testing Library, Jest, Mock Service Worker
+
+## What I learned or used for the first time
+
+- Full stack authentication using bcrypt and jwt
+- A custom-made random number generator (which I was forced to build after my IP was blocked from [https://www.random.org](https://www.random.org)!)
+- Typescript for backend
+- Authentication middleware
+- Mocha and Chai for backend unit testing
+
 # Create React App boilerplate ReadMe:
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -8,7 +8,7 @@ const closeModal = () => {
 	open = false;
 };
 
-const testText = "Welcome to Mastermind! Here's how to play:";
+const testText = 'Welcome to Mastermind!';
 
 const modalComponent = (
 	<InstructionsModal
@@ -18,7 +18,7 @@ const modalComponent = (
 );
 
 describe('Tests for GameEndModal', () => {
-	test('Modal displays correct text', () => {
+	test('Modal displays text', () => {
 		render(modalComponent);
 		const modal = screen.getByText(testText);
 		expect(modal).toBeInTheDocument();

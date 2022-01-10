@@ -44,6 +44,14 @@
 		margin-top: 1rem;
 	}
 
+	.loading {
+		font-size: 2rem;
+	}
+
+	.noGames {
+		text-align: center;
+	}
+
 	.bold {
 		font-weight: 600;
 	}
@@ -61,6 +69,14 @@
 
 		.scores {
 			font-size: 1.3rem;
+		}
+	}
+}
+
+@media only screen and (max-width: 375px) {
+	.scoresWrapper {
+		.scores {
+			width: 300px;
 		}
 	}
 }

@@ -1,4 +1,5 @@
-import { compareSequence, digitCheck } from '../utils';
+import { compareSequence, digitCheck, setAuthToken } from '../utils';
+import axios from 'axios';
 
 describe('Tests for compareSequence function', () => {
 	test('Correctly returns no matches', () => {
@@ -56,5 +57,19 @@ describe('Tests for digitCheck function', () => {
 	test('Zero returns true', () => {
 		const result = digitCheck(0);
 		expect(result).toBe(true);
+	});
+});
+
+describe('Tests for setAuthToken function', () => {
+	test('String sets axios defaults', () => {
+		setAuthToken('test');
+		const token = axios.defaults.headers.common['x-auth-token'];
+		expect(token).toBe('test');
+	});
+	test('Empty token deletes axios defaults', () => {
+		setAuthToken('test');
+		setAuthToken('');
+		const token = axios.defaults.headers.common['x-auth-token'];
+		expect(token).toBe(undefined);
 	});
 });
