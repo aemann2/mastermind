@@ -8,11 +8,11 @@ const RegisterForm = () => {
 
 	const [user, setUser] = useState({
 		email: '',
-		password: '',
+		password1: '',
 		password2: '',
 	});
 
-	const { email, password, password2 } = user;
+	const { email, password1, password2 } = user;
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setUser({ ...user, [e.target.name]: e.target.value });
@@ -20,11 +20,11 @@ const RegisterForm = () => {
 
 	const onSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		if (password !== password2) {
+		if (password1 !== password2) {
 			setError('Passwords do not match');
 			return;
 		}
-		await register(email, password);
+		await register(email, password1);
 	};
 
 	return (
@@ -49,7 +49,7 @@ const RegisterForm = () => {
 					type='password'
 					name='password1'
 					aria-labelledby='password1'
-					value={password}
+					value={password1}
 					onChange={onChange}
 					required
 					minLength={6}
