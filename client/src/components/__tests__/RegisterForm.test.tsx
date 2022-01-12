@@ -17,11 +17,13 @@ describe('Tests for RegisterForm component', () => {
 		render(<RegisterForm />);
 		const password1 = screen.getByLabelText('Password');
 		userEvent.type(password1, '111111');
+		expect(password1).toHaveValue('111111');
 	});
 	test('Password 2 input works', () => {
 		render(<RegisterForm />);
 		const password2 = screen.getByLabelText('Confirm Password');
 		userEvent.type(password2, '111111');
+		expect(password2).toHaveValue('111111');
 	});
 	test('Register button appears', () => {
 		render(<RegisterForm />);
