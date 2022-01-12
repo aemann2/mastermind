@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Results } from '../types/types';
 import Button from '../ui/Button';
 import { compareSequence, digitCheck } from '../utils/utils';
@@ -35,8 +35,8 @@ const Numbers: React.FC<IProps> = ({
 	}
 
 	const [inputValues, setInputs] = useState<IState>(emptyInputs);
+	const emptyInputRef = useRef(emptyInputs);
 
-	//@ts-ignore
 	const inputs = [];
 	let inputCounter = 0;
 
@@ -84,7 +84,7 @@ const Numbers: React.FC<IProps> = ({
 
 	useEffect(() => {
 		if (!gameEndModalOpen) {
-			setInputs(emptyInputs);
+			setInputs(emptyInputRef.current);
 		}
 	}, [gameEndModalOpen]);
 
