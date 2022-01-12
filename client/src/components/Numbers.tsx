@@ -26,31 +26,41 @@ const Numbers: React.FC<IProps> = ({
 	gameEndModalOpen,
 	setGameEndModalOpen,
 }) => {
-	const [inputValues, setInputs] = useState<IState>({
-		1: 0,
-		2: 0,
-		3: 0,
-		4: 0,
-	});
+	const numRows = 2;
 	const numberOfInputs = 4;
-	const inputs = [];
+	const emptyInputs = {};
+	for (let i = 0; i < numberOfInputs * numRows; i++) {
+		//@ts-ignore
+		emptyInputs[i] = 0;
+	}
 
-	for (let i = 1; i <= numberOfInputs; i++) {
-		inputs.push(
-			<input
-				className={styles.inputBox}
-				key={`input ${i}`}
-				// using telephone type...a trick to get around problems with digit entry
-				type='tel'
-				id={`${i}`}
-				name={`${i}`}
-				min={0}
-				max={7}
-				value={inputValues[i]}
-				onChange={handleChange}
-				onFocus={handleFocus}
-			/>
-		);
+	const [inputValues, setInputs] = useState<IState>(emptyInputs);
+
+	//@ts-ignore
+	const inputs = [];
+	let inputCounter = 0;
+
+	for (let j = 1; j <= numRows; j++) {
+		const inputRow = [];
+		for (let i = 1; i <= numberOfInputs; i++) {
+			inputRow.push(
+				<input
+					className={styles.inputBox}
+					key={`input ${inputCounter}`}
+					// using telephone type...a trick to get around problems with digit entry
+					type='tel'
+					id={`${i}`}
+					name={`${inputCounter}`}
+					min={0}
+					max={7}
+					value={inputValues[inputCounter]}
+					onChange={handleChange}
+					onFocus={handleFocus}
+				/>
+			);
+			inputCounter++;
+		}
+		inputs.push(inputRow);
 	}
 
 	// focus input box on first click
@@ -74,12 +84,7 @@ const Numbers: React.FC<IProps> = ({
 
 	useEffect(() => {
 		if (!gameEndModalOpen) {
-			setInputs({
-				1: 0,
-				2: 0,
-				3: 0,
-				4: 0,
-			});
+			setInputs(emptyInputs);
 		}
 	}, [gameEndModalOpen]);
 
@@ -108,7 +113,11 @@ const Numbers: React.FC<IProps> = ({
 	return (
 		<div className={styles.numbers}>
 			<form onSubmit={handleSubmit}>
-				<div className={styles.inputs}>{inputs}</div>
+				<div className={styles.inputs}>
+					{inputs.map((inputRow) => {
+						return <div style={{ marginTop: '1rem' }}>{inputRow}</div>;
+					})}
+				</div>
 				{sequence ? (
 					<Button disabled={gameEndModalOpen || numberOfGuesses > 10}>
 						Submit
