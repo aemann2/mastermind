@@ -1,17 +1,22 @@
 import { useState, useEffect, useContext, useRef } from 'react';
 import axios from 'axios';
+
 import Guesses from '../components/Guesses';
 import Numbers from '../components/Numbers';
 import GameEndModal from '../components/GameEndModal';
 import InstructionsModal from '../components/InstructionsModal';
 import GuessHistory from '../components/GuessHistory';
+import DifficultyPicker from '../components/DifficultyPicker';
 import Nav from '../components/Nav';
+
 import { AuthContext } from '../context/auth/authProvider';
 import { Results } from '../types/types';
 import styles from '../styles/pages/Index.module.scss';
 
 function Index() {
 	const [sequence, setSequence] = useState<number[] | null>(null);
+	const [numberOfInputs, setNumberOfInputs] = useState<number>(4);
+	const [roundStarted, setRoundStarted] = useState(false);
 	const [guessSequence, setGuessSequence] = useState<Results[] | []>([]);
 	const [numberOfGuesses, setNumberOfGuesses] = useState<number>(0);
 	const [win, setWin] = useState<boolean>(false);
@@ -28,7 +33,7 @@ function Index() {
 			'https://mastermind-amann.herokuapp.com/api/randomnum'
 		);
 		// Log to show mystery number
-		console.log(num.data.number);
+		// console.log(num.data.number);
 		setSequence(num.data.number);
 	};
 
@@ -78,7 +83,11 @@ function Index() {
 		<>
 			<Nav setInstructionModalOpen={setInstructionModalOpen} />
 			<main className={styles.mainContent}>
-				<Guesses numberOfGuesses={numberOfGuesses} />
+				{roundStarted ? (
+					<Guesses numberOfGuesses={numberOfGuesses} />
+				) : (
+					<DifficultyPicker setNumberOfInputs={setNumberOfInputs} />
+				)}
 				<Numbers
 					setWin={setWin}
 					gameEndModalOpen={gameEndModalOpen}
@@ -86,6 +95,8 @@ function Index() {
 					setNumberOfGuesses={setNumberOfGuesses}
 					setGameEndModalOpen={setGameEndModalOpen}
 					sequence={sequence}
+					numberOfInputs={numberOfInputs}
+					roundStarted={roundStarted}
 					setGuessSequence={setGuessSequence}
 				/>
 				<GuessHistory guessSequence={guessSequence} />

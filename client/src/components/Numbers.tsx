@@ -9,6 +9,8 @@ interface IProps {
 	setNumberOfGuesses: React.Dispatch<React.SetStateAction<number>>;
 	sequence: number[] | null;
 	gameEndModalOpen: boolean;
+	numberOfInputs: number;
+	roundStarted: boolean;
 	setGameEndModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	setGuessSequence: React.Dispatch<React.SetStateAction<Results[] | []>>;
 }
@@ -24,10 +26,11 @@ const Numbers: React.FC<IProps> = ({
 	sequence,
 	setGuessSequence,
 	gameEndModalOpen,
+	numberOfInputs,
+	roundStarted,
 	setGameEndModalOpen,
 }) => {
-	const numRows = 2;
-	const numberOfInputs = 4;
+	const numRows = 1;
 	const emptyInputs = {};
 	for (let i = 0; i < numberOfInputs * numRows; i++) {
 		//@ts-ignore
@@ -36,9 +39,19 @@ const Numbers: React.FC<IProps> = ({
 
 	const [inputValues, setInputs] = useState<IState>(emptyInputs);
 	const emptyInputRef = useRef(emptyInputs);
+	console.log(inputValues);
 
 	const inputs = [];
 	let inputCounter = 0;
+
+	useEffect(() => {
+		const emptyInputs = {};
+		for (let i = 0; i < numberOfInputs * numRows; i++) {
+			//@ts-ignore
+			emptyInputs[i] = 0;
+		}
+		setInputs(emptyInputs);
+	}, [numberOfInputs]);
 
 	for (let j = 1; j <= numRows; j++) {
 		const inputRow = [];
@@ -49,7 +62,7 @@ const Numbers: React.FC<IProps> = ({
 					key={`input ${inputCounter}`}
 					// using telephone type...a trick to get around problems with digit entry
 					type='tel'
-					id={`${i}`}
+					id={`${inputCounter}`}
 					name={`${inputCounter}`}
 					min={0}
 					max={7}
