@@ -55,7 +55,7 @@ router.post(
 			});
 		}
 
-		const { sequence, guesses, solved } = req.body;
+		const { sequence, time, guesses, solved } = req.body;
 
 		try {
 			let sequenceString = sequence.join('');
@@ -63,6 +63,7 @@ router.post(
 			const newScore = new Score({
 				user: req.user.id,
 				sequence: sequenceString,
+				time: time,
 				guesses: guesses,
 				solved: solved,
 			});
