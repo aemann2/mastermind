@@ -2,24 +2,27 @@ import { render, screen, act } from '@testing-library/react';
 import Timer from '../Timer';
 
 jest.spyOn(global, 'setInterval');
+const setElapsedTime = jest.fn();
+
+const TimerComponent = <Timer setElapsedTime={setElapsedTime} />;
 
 describe('Tests for Timer component', () => {
 	test('Component renders', () => {
-		const { container } = render(<Timer />);
+		const { container } = render(TimerComponent);
 		expect(container).not.toBeEmptyDOMElement();
 	});
 	test('setInterval gets called when timer starts', () => {
-		render(<Timer />);
+		render(TimerComponent);
 		expect(setInterval).toHaveBeenCalledTimes(1);
 	});
 	test('Timer starts at zero', () => {
-		render(<Timer />);
+		render(TimerComponent);
 		const timer = screen.getByText('0:00');
 		expect(timer).toBeInTheDocument();
 	});
 	test('Timer counts up', () => {
 		jest.useFakeTimers();
-		render(<Timer />);
+		render(TimerComponent);
 		act(() => {
 			jest.advanceTimersByTime(1000);
 		});

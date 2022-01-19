@@ -1,5 +1,6 @@
-import { useState, useEffect, useContext, useRef } from 'react';
+import { useState, useEffect, useContext, useCallback, useRef } from 'react';
 import axios from 'axios';
+import Timer from '../components/Timer';
 import Guesses from '../components/Guesses';
 import Numbers from '../components/Numbers';
 import GameEndModal from '../components/GameEndModal';
@@ -12,6 +13,10 @@ import styles from '../styles/pages/Index.module.scss';
 
 function Index() {
 	const [sequence, setSequence] = useState<number[] | null>(null);
+	const [elapsedTime, setElapsedTime] = useState({
+		mins: 0,
+		secs: 0,
+	});
 	const [guessSequence, setGuessSequence] = useState<Results[] | []>([]);
 	const [numberOfGuesses, setNumberOfGuesses] = useState<number>(0);
 	const [win, setWin] = useState<boolean>(false);
@@ -22,8 +27,6 @@ function Index() {
 
 	// Ref to get around useEffect dependency warning
 	const loadUserRef = useRef(loadUser);
-
-	console.log(process.env.NODE_ENV);
 
 	const getSequence = async () => {
 		const num = await axios('/api/randomnum');
@@ -49,11 +52,13 @@ function Index() {
 	}, [numberOfGuesses]);
 
 	const handlePost = async () => {
+		const { mins, secs } = elapsedTime;
 		let solved;
 		win ? (solved = true) : (solved = false);
 		try {
 			await axios.post('/api/scores', {
 				sequence: sequence,
+				time: `${mins}:${secs}`,
 				guesses: numberOfGuesses,
 				solved: solved,
 			});
@@ -74,10 +79,13 @@ function Index() {
 		getSequence();
 	};
 
+	const callbackElapsedTime = useCallback(setElapsedTime, [setElapsedTime]);
+
 	return (
 		<>
 			<Nav setInstructionModalOpen={setInstructionModalOpen} />
 			<main className={styles.mainContent}>
+				<Timer setElapsedTime={callbackElapsedTime} />
 				<Guesses numberOfGuesses={numberOfGuesses} />
 				<Numbers
 					setWin={setWin}

@@ -16,7 +16,6 @@ describe('Tests for compareSequence function', () => {
 	});
 	test('Works with both N and L matches', () => {
 		const result = compareSequence([1, 2, 3, 4], [1, 2, 4, 3]);
-		console.log(result);
 		expect(result).toStrictEqual({ N: 2, L: 2 });
 	});
 	test('Works with all L matches', () => {

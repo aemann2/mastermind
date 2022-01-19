@@ -1,6 +1,14 @@
 import { useState, useEffect } from 'react';
 
-const Timer = () => {
+type elapsedTime = {
+	mins: number;
+	secs: number;
+};
+interface IProps {
+	setElapsedTime: React.Dispatch<React.SetStateAction<elapsedTime>>;
+}
+
+const Timer: React.FC<IProps> = ({ setElapsedTime }) => {
 	const [minutes, setMinutes] = useState(0);
 	const [seconds, setSeconds] = useState(0);
 	useEffect(() => {
@@ -15,6 +23,10 @@ const Timer = () => {
 			clearInterval(myInterval);
 		};
 	});
+
+	useEffect(() => {
+		setElapsedTime({ mins: minutes, secs: seconds });
+	}, [minutes, seconds, setElapsedTime]);
 
 	return (
 		<>
