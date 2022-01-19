@@ -18,9 +18,7 @@ const Scores = () => {
 	}, []);
 
 	async function getScores() {
-		const res = await axios.get(
-			'https://mastermind-amann.herokuapp.com/api/scores'
-		);
+		const res = await axios.get('/api/scores');
 		setScores(res.data.data);
 	}
 

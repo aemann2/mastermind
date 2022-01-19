@@ -23,10 +23,10 @@ function Index() {
 	// Ref to get around useEffect dependency warning
 	const loadUserRef = useRef(loadUser);
 
+	console.log(process.env.NODE_ENV);
+
 	const getSequence = async () => {
-		const num = await axios(
-			'https://mastermind-amann.herokuapp.com/api/randomnum'
-		);
+		const num = await axios('/api/randomnum');
 		// Log to show mystery number
 		console.log(num.data.number);
 		setSequence(num.data.number);
@@ -52,7 +52,7 @@ function Index() {
 		let solved;
 		win ? (solved = true) : (solved = false);
 		try {
-			await axios.post('https://mastermind-amann.herokuapp.com/api/scores', {
+			await axios.post('/api/scores', {
 				sequence: sequence,
 				guesses: numberOfGuesses,
 				solved: solved,
