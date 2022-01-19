@@ -7,6 +7,7 @@ interface Score {
 	_id: string;
 	sequence: string;
 	guesses: number;
+	time: string;
 	solved: boolean;
 }
 
@@ -18,9 +19,7 @@ const Scores = () => {
 	}, []);
 
 	async function getScores() {
-		const res = await axios.get(
-			'https://mastermind-amann.herokuapp.com/api/scores'
-		);
+		const res = await axios.get('/api/scores');
 		setScores(res.data.data);
 	}
 
@@ -34,7 +33,7 @@ const Scores = () => {
 						<div className={styles.scores}>
 							{scores.length > 0 ? (
 								scores.map((score, index) => {
-									const { guesses, sequence, solved } = score;
+									const { guesses, sequence, time, solved } = score;
 
 									return (
 										<div className={styles.score} key={score._id}>
@@ -44,6 +43,9 @@ const Scores = () => {
 											<p>
 												<span className={styles.bold}>Sequence:</span>{' '}
 												{sequence}
+											</p>
+											<p>
+												<span className={styles.bold}>Time:</span> {time}
 											</p>
 											<p>
 												<span className={styles.bold}>Guesses:</span> {guesses}
