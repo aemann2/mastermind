@@ -111,6 +111,7 @@ function Index() {
 					setGuessSequence={setGuessSequence}
 					roundStarted={roundStarted}
 					setRoundStarted={setRoundStarted}
+					numberOfInputs={numberOfInputs}
 				/>
 				<GuessHistory guessSequence={guessSequence} />
 				{win ? (

@@ -13,6 +13,7 @@ interface IProps {
 	setGuessSequence: React.Dispatch<React.SetStateAction<Results[] | []>>;
 	roundStarted: boolean;
 	setRoundStarted: React.Dispatch<React.SetStateAction<boolean>>;
+	numberOfInputs: number;
 }
 
 interface IState {
@@ -29,17 +30,24 @@ const Numbers: React.FC<IProps> = ({
 	setGameEndModalOpen,
 	roundStarted,
 	setRoundStarted,
+	numberOfInputs,
 }) => {
-	const [inputValues, setInputs] = useState<IState>({
-		1: 0,
-		2: 0,
-		3: 0,
-		4: 0,
-	});
-	const numberOfInputs = 4;
+	const generateInputValues = () => {
+		const inputValues: IState = {};
+		for (let i = 0; i < numberOfInputs; i++) {
+			inputValues[i] = 0;
+		}
+		return inputValues;
+	};
+
+	const [inputValues, setInputs] = useState<IState>(generateInputValues());
+	//@ts-ignore
 	const inputs = [];
 
-	for (let i = 1; i <= numberOfInputs; i++) {
+	//@ts-ignore
+	console.log(inputs);
+
+	for (let i = 0; i < numberOfInputs; i++) {
 		inputs.push(
 			<input
 				className={styles.inputBox}
@@ -81,14 +89,10 @@ const Numbers: React.FC<IProps> = ({
 
 	useEffect(() => {
 		if (!gameEndModalOpen) {
-			setInputs({
-				1: 0,
-				2: 0,
-				3: 0,
-				4: 0,
-			});
+			setInputs(generateInputValues());
 		}
-	}, [gameEndModalOpen]);
+		//@ts-ignore
+	}, [gameEndModalOpen, numberOfInputs]);
 
 	const runCompareSequence = () => {
 		const entryArr = Object.values(inputValues);
