@@ -91,7 +91,7 @@ function Index() {
 		<>
 			<Nav setInstructionModalOpen={setInstructionModalOpen} />
 			<main className={styles.mainContent}>
-				<DifficultyPicker />
+				{!roundStarted && <DifficultyPicker />}
 				<Timer
 					roundStarted={roundStarted}
 					gameEndModalOpen={gameEndModalOpen}
