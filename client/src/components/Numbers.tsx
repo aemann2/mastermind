@@ -11,6 +11,8 @@ interface IProps {
 	gameEndModalOpen: boolean;
 	setGameEndModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	setGuessSequence: React.Dispatch<React.SetStateAction<Results[] | []>>;
+	roundStarted: boolean;
+	setRoundStarted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface IState {
@@ -25,6 +27,8 @@ const Numbers: React.FC<IProps> = ({
 	setGuessSequence,
 	gameEndModalOpen,
 	setGameEndModalOpen,
+	roundStarted,
+	setRoundStarted,
 }) => {
 	const [inputValues, setInputs] = useState<IState>({
 		1: 0,
@@ -64,6 +68,9 @@ const Numbers: React.FC<IProps> = ({
 		if (!digitCheck(parseInt(value))) {
 			e.target.select();
 		} else {
+			if (!roundStarted) {
+				setRoundStarted(true);
+			}
 			setInputs({
 				...inputValues,
 				[e.target.name]: parseInt(value),
@@ -102,6 +109,9 @@ const Numbers: React.FC<IProps> = ({
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		if (!roundStarted) {
+			setRoundStarted(true);
+		}
 		runCompareSequence();
 	};
 

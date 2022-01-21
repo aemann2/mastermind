@@ -17,6 +17,7 @@ function Index() {
 		mins: 0,
 		secs: 0,
 	});
+	const [roundStarted, setRoundStarted] = useState(false);
 	const [guessSequence, setGuessSequence] = useState<Results[] | []>([]);
 	const [numberOfGuesses, setNumberOfGuesses] = useState<number>(0);
 	const [win, setWin] = useState<boolean>(false);
@@ -48,6 +49,7 @@ function Index() {
 	useEffect(() => {
 		if (numberOfGuesses >= 10) {
 			setGameEndModalOpen(true);
+			setRoundStarted(false);
 		}
 	}, [numberOfGuesses]);
 
@@ -58,7 +60,7 @@ function Index() {
 		try {
 			await axios.post('/api/scores', {
 				sequence: sequence,
-				time: `${mins}:${secs}`,
+				time: `${mins}:${secs < 10 ? `0${secs}` : secs}`,
 				guesses: numberOfGuesses,
 				solved: solved,
 			});
@@ -76,16 +78,24 @@ function Index() {
 		setNumberOfGuesses(0);
 		setGameEndModalOpen(false);
 		setSequence(null);
+		setElapsedTime({ mins: 0, secs: 0 });
 		getSequence();
 	};
 
 	const callbackElapsedTime = useCallback(setElapsedTime, [setElapsedTime]);
 
+	console.log(elapsedTime.mins);
+	console.log(elapsedTime.secs);
+
 	return (
 		<>
 			<Nav setInstructionModalOpen={setInstructionModalOpen} />
 			<main className={styles.mainContent}>
-				<Timer setElapsedTime={callbackElapsedTime} />
+				<Timer
+					roundStarted={roundStarted}
+					gameEndModalOpen={gameEndModalOpen}
+					setElapsedTime={callbackElapsedTime}
+				/>
 				<Guesses numberOfGuesses={numberOfGuesses} />
 				<Numbers
 					setWin={setWin}
@@ -95,6 +105,8 @@ function Index() {
 					setGameEndModalOpen={setGameEndModalOpen}
 					sequence={sequence}
 					setGuessSequence={setGuessSequence}
+					roundStarted={roundStarted}
+					setRoundStarted={setRoundStarted}
 				/>
 				<GuessHistory guessSequence={guessSequence} />
 				{win ? (
@@ -106,6 +118,14 @@ function Index() {
 							You won in {numberOfGuesses}
 							{numberOfGuesses > 1 ? ' guesses' : ' guess'}!
 						</h3>
+						<h3>
+							Your time was:{' '}
+							<span className={styles.bold}>{`${elapsedTime.mins}:${
+								elapsedTime.secs < 10
+									? `0${elapsedTime.secs}`
+									: elapsedTime.secs
+							}`}</span>
+						</h3>
 						<p>Close this window to try again.</p>
 					</GameEndModal>
 				) : (
@@ -116,6 +136,14 @@ function Index() {
 						<h3>Aww, you lost this time.</h3>
 						<h3>
 							The sequence was: <span className={styles.bold}>{sequence}</span>
+						</h3>
+						<h3>
+							Your time was:{' '}
+							<span className={styles.bold}>{`${elapsedTime.mins}:${
+								elapsedTime.secs < 10
+									? `0${elapsedTime.secs}`
+									: elapsedTime.secs
+							}`}</span>
 						</h3>
 						<p>Close this window to try again.</p>
 					</GameEndModal>

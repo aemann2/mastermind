@@ -3,8 +3,11 @@ import Timer from '../Timer';
 
 jest.spyOn(global, 'setInterval');
 const setElapsedTime = jest.fn();
+const roundStarted = true;
 
-const TimerComponent = <Timer setElapsedTime={setElapsedTime} />;
+const TimerComponent = (
+	<Timer roundStarted={roundStarted} setElapsedTime={setElapsedTime} />
+);
 
 describe('Tests for Timer component', () => {
 	test('Component renders', () => {
