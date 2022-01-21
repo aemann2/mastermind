@@ -32,7 +32,7 @@ function Index() {
 	const getSequence = async () => {
 		const num = await axios('/api/randomnum');
 		// Log to show mystery number
-		console.log(num.data.number);
+		// console.log(num.data.number);
 		setSequence(num.data.number);
 	};
 
@@ -83,9 +83,6 @@ function Index() {
 	};
 
 	const callbackElapsedTime = useCallback(setElapsedTime, [setElapsedTime]);
-
-	console.log(elapsedTime.mins);
-	console.log(elapsedTime.secs);
 
 	return (
 		<>
