@@ -23,6 +23,7 @@ function Index() {
 	const [roundStarted, setRoundStarted] = useState(false);
 	const [guessSequence, setGuessSequence] = useState<Results[] | []>([]);
 	const [numberOfGuesses, setNumberOfGuesses] = useState<number>(0);
+	const [numberOfInputs, setNumberOfInputs] = useState<number>(4);
 	const [win, setWin] = useState<boolean>(false);
 	const [gameEndModalOpen, setGameEndModalOpen] = useState<boolean>(false);
 	const [instructionModalOpen, setInstructionModalOpen] =
@@ -91,7 +92,9 @@ function Index() {
 		<>
 			<Nav setInstructionModalOpen={setInstructionModalOpen} />
 			<main className={styles.mainContent}>
-				{!roundStarted && <DifficultyPicker />}
+				{!roundStarted && (
+					<DifficultyPicker setNumberOfInputs={setNumberOfInputs} />
+				)}
 				<Timer
 					roundStarted={roundStarted}
 					gameEndModalOpen={gameEndModalOpen}
