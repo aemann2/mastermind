@@ -1,5 +1,7 @@
 import { useState, useEffect, useContext, useCallback, useRef } from 'react';
 import axios from 'axios';
+
+import DifficultyPicker from '../components/DifficultyPicker';
 import Timer from '../components/Timer';
 import Guesses from '../components/Guesses';
 import Numbers from '../components/Numbers';
@@ -8,6 +10,7 @@ import InstructionsModal from '../components/InstructionsModal';
 import GuessHistory from '../components/GuessHistory';
 import Nav from '../components/Nav';
 import { AuthContext } from '../context/auth/authProvider';
+
 import { Results } from '../types/types';
 import styles from '../styles/pages/Index.module.scss';
 
@@ -88,6 +91,7 @@ function Index() {
 		<>
 			<Nav setInstructionModalOpen={setInstructionModalOpen} />
 			<main className={styles.mainContent}>
+				<DifficultyPicker />
 				<Timer
 					roundStarted={roundStarted}
 					gameEndModalOpen={gameEndModalOpen}
