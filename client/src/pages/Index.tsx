@@ -32,7 +32,7 @@ function Index() {
 	const getSequence = async () => {
 		const num = await axios('/api/randomnum');
 		// Log to show mystery number
-		// console.log(num.data.number);
+		console.log(num.data.number);
 		setSequence(num.data.number);
 	};
 
@@ -47,11 +47,11 @@ function Index() {
 	}, [isAuthenticated]);
 
 	useEffect(() => {
-		if (numberOfGuesses >= 10) {
+		if (numberOfGuesses >= 10 || win) {
 			setGameEndModalOpen(true);
 			setRoundStarted(false);
 		}
-	}, [numberOfGuesses]);
+	}, [numberOfGuesses, win]);
 
 	const handlePost = async () => {
 		const { mins, secs } = elapsedTime;
