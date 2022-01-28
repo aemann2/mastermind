@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Results } from '../types/types';
 import Button from '../ui/Button';
 import { compareSequence, digitCheck } from '../utils/utils';
@@ -32,17 +32,17 @@ const Numbers: React.FC<IProps> = ({
 	setRoundStarted,
 	numberOfInputs,
 }) => {
-	const emptyInputValues = useRef({
-		0: 0,
-		1: 0,
-		2: 0,
-		3: 0,
-		4: 0,
-		5: 0,
-	});
-	const [inputValues, setInputValues] = useState<IState>(
-		emptyInputValues.current
-	);
+	const [inputValues, setInputValues] = useState<IState>({});
+
+	useEffect(() => {
+		if (!gameEndModalOpen) {
+			const inputValues: IState = {};
+			for (let i = 0; i < numberOfInputs; i++) {
+				inputValues[i] = 0;
+			}
+			setInputValues(inputValues);
+		}
+	}, [numberOfInputs, gameEndModalOpen]);
 
 	const inputs = [];
 
@@ -57,7 +57,7 @@ const Numbers: React.FC<IProps> = ({
 				name={`${i}`}
 				min={0}
 				max={7}
-				value={inputValues[i]}
+				value={inputValues[i] || 0}
 				onChange={handleChange}
 				onFocus={handleFocus}
 			/>
@@ -87,10 +87,10 @@ const Numbers: React.FC<IProps> = ({
 	}
 
 	useEffect(() => {
-		if (!gameEndModalOpen) {
-			setInputValues(emptyInputValues.current);
+		if (!roundStarted) {
+			setInputValues(inputValues);
 		}
-	}, [gameEndModalOpen, numberOfInputs]);
+	}, [inputValues, roundStarted]);
 
 	const runCompareSequence = () => {
 		const entryArr = Object.values(inputValues);
