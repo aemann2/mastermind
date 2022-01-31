@@ -14,6 +14,16 @@ import { AuthContext } from '../context/auth/authProvider';
 import { Results } from '../types/types';
 import styles from '../styles/pages/Index.module.scss';
 
+const returnDifficultyString = (difficulty: number) => {
+	if (difficulty === 4) {
+		return 'Easy';
+	} else if (difficulty === 5) {
+		return 'Medium';
+	} else if (difficulty === 6) {
+		return 'Hard';
+	} else return;
+};
+
 function Index() {
 	const [sequence, setSequence] = useState<number[] | null>(null);
 	const [elapsedTime, setElapsedTime] = useState({
@@ -59,11 +69,13 @@ function Index() {
 
 	const handlePost = async () => {
 		const { mins, secs } = elapsedTime;
+		const difficulty = returnDifficultyString(numberOfInputs);
 		let solved;
 		win ? (solved = true) : (solved = false);
 		try {
 			await axios.post('/api/scores', {
 				sequence: sequence,
+				difficulty: difficulty,
 				time: `${mins}:${secs < 10 ? `0${secs}` : secs}`,
 				guesses: numberOfGuesses,
 				solved: solved,

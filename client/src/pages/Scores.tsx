@@ -6,6 +6,7 @@ import Nav from '../components/Nav';
 interface Score {
 	_id: string;
 	sequence: string;
+	difficulty: string;
 	guesses: number;
 	time: string;
 	solved: boolean;
@@ -33,7 +34,7 @@ const Scores = () => {
 						<div className={styles.scores}>
 							{scores.length > 0 ? (
 								scores.map((score, index) => {
-									const { guesses, sequence, time, solved } = score;
+									const { guesses, difficulty, sequence, time, solved } = score;
 
 									return (
 										<div className={styles.score} key={score._id}>
@@ -41,8 +42,12 @@ const Scores = () => {
 												{Math.abs(index - scores.length)}.
 											</p>
 											<p>
-												<span className={styles.bold}>Sequence:</span>{' '}
+												<span className={styles.bold}>Sequence: </span>
 												{sequence}
+											</p>
+											<p>
+												<span className={styles.bold}>Difficulty: </span>
+												{difficulty}
 											</p>
 											<p>
 												<span className={styles.bold}>Time:</span> {time}
