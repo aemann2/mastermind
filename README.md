@@ -1,8 +1,10 @@
 # [Mastermind](https://mastermind-amann.herokuapp.com/)
 
-<a href="https://mastermind-amann.herokuapp.com/" target="_blank"><img src='https://user-images.githubusercontent.com/68879246/148706712-f3f50cd6-3325-4d56-a3bd-4a7cb9a467a9.png' alt='Mastermind'></a>
+<a href="https://mastermind-amann.herokuapp.com/" target="_blank"><img src='https://user-images.githubusercontent.com/68879246/151868766-e797f22b-b4b9-471a-a107-baee23981107.png' alt='Mastermind'></a>
 
 **Mastermind** is a number guessing game where a player tries to guess a series of numbers within 10 turns. Users can register to create an account, and scores will be tracked using a MongoDB database. Users can see the history of their scores on the 'Scores' page after logging in.
+
+**_A note on creating an account:_** This is my first time implementing full authentication, and I'm aware that I'm using a somewhat outdated method of doing so. For that reason, it's probably best to not use a password here that you'd use anywhere else!
 
 ## Running the project locally
 

@@ -46,7 +46,7 @@ function Index() {
 	const getSequence = async (numberOfInputs: number) => {
 		const num = await axios(`/api/randomnum?len=${numberOfInputs}`);
 		// Log to show mystery number
-		console.log(num.data.number);
+		// console.log(num.data.number);
 		setSequence(num.data.number);
 	};
 
