@@ -1,5 +1,7 @@
 import { useState, useEffect, useContext, useCallback, useRef } from 'react';
 import axios from 'axios';
+
+import DifficultyPicker from '../components/DifficultyPicker';
 import Timer from '../components/Timer';
 import Guesses from '../components/Guesses';
 import Numbers from '../components/Numbers';
@@ -8,8 +10,19 @@ import InstructionsModal from '../components/InstructionsModal';
 import GuessHistory from '../components/GuessHistory';
 import Nav from '../components/Nav';
 import { AuthContext } from '../context/auth/authProvider';
+
 import { Results } from '../types/types';
 import styles from '../styles/pages/Index.module.scss';
+
+const returnDifficultyString = (difficulty: number) => {
+	if (difficulty === 4) {
+		return 'Easy';
+	} else if (difficulty === 5) {
+		return 'Medium';
+	} else if (difficulty === 6) {
+		return 'Hard';
+	} else return;
+};
 
 function Index() {
 	const [sequence, setSequence] = useState<number[] | null>(null);
@@ -20,6 +33,7 @@ function Index() {
 	const [roundStarted, setRoundStarted] = useState(false);
 	const [guessSequence, setGuessSequence] = useState<Results[] | []>([]);
 	const [numberOfGuesses, setNumberOfGuesses] = useState<number>(0);
+	const [numberOfInputs, setNumberOfInputs] = useState<number>(4);
 	const [win, setWin] = useState<boolean>(false);
 	const [gameEndModalOpen, setGameEndModalOpen] = useState<boolean>(false);
 	const [instructionModalOpen, setInstructionModalOpen] =
@@ -29,16 +43,16 @@ function Index() {
 	// Ref to get around useEffect dependency warning
 	const loadUserRef = useRef(loadUser);
 
-	const getSequence = async () => {
-		const num = await axios('/api/randomnum');
+	const getSequence = async (numberOfInputs: number) => {
+		const num = await axios(`/api/randomnum?len=${numberOfInputs}`);
 		// Log to show mystery number
 		console.log(num.data.number);
 		setSequence(num.data.number);
 	};
 
 	useEffect(() => {
-		getSequence();
-	}, []);
+		getSequence(numberOfInputs);
+	}, [numberOfInputs]);
 
 	useEffect(() => {
 		if (isAuthenticated) {
@@ -55,11 +69,13 @@ function Index() {
 
 	const handlePost = async () => {
 		const { mins, secs } = elapsedTime;
+		const difficulty = returnDifficultyString(numberOfInputs);
 		let solved;
 		win ? (solved = true) : (solved = false);
 		try {
 			await axios.post('/api/scores', {
 				sequence: sequence,
+				difficulty: difficulty,
 				time: `${mins}:${secs < 10 ? `0${secs}` : secs}`,
 				guesses: numberOfGuesses,
 				solved: solved,
@@ -79,7 +95,7 @@ function Index() {
 		setGameEndModalOpen(false);
 		setSequence(null);
 		setElapsedTime({ mins: 0, secs: 0 });
-		getSequence();
+		getSequence(numberOfInputs);
 	};
 
 	const callbackElapsedTime = useCallback(setElapsedTime, [setElapsedTime]);
@@ -88,6 +104,9 @@ function Index() {
 		<>
 			<Nav setInstructionModalOpen={setInstructionModalOpen} />
 			<main className={styles.mainContent}>
+				{!roundStarted && (
+					<DifficultyPicker setNumberOfInputs={setNumberOfInputs} />
+				)}
 				<Timer
 					roundStarted={roundStarted}
 					gameEndModalOpen={gameEndModalOpen}
@@ -104,6 +123,7 @@ function Index() {
 					setGuessSequence={setGuessSequence}
 					roundStarted={roundStarted}
 					setRoundStarted={setRoundStarted}
+					numberOfInputs={numberOfInputs}
 				/>
 				<GuessHistory guessSequence={guessSequence} />
 				{win ? (

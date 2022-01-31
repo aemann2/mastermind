@@ -12,6 +12,10 @@ const ScoreSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	difficulty: {
+		type: String,
+		required: true,
+	},
 	time: {
 		type: String,
 		required: true,
