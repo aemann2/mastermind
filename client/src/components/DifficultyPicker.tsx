@@ -12,9 +12,13 @@ const DifficultyPicker: React.FC<IProps> = ({ setNumberOfInputs }) => {
 	};
 	return (
 		<div className={styles.difficultyPicker}>
-			<Button onClick={(e) => handleClick(e, 4)}>Easy</Button>
+			<Button className={styles.easy} onClick={(e) => handleClick(e, 4)}>
+				Easy
+			</Button>
 			<Button onClick={(e) => handleClick(e, 5)}>Medium</Button>
-			<Button onClick={(e) => handleClick(e, 6)}>Hard</Button>
+			<Button className={styles.hard} onClick={(e) => handleClick(e, 6)}>
+				Hard
+			</Button>
 		</div>
 	);
 };

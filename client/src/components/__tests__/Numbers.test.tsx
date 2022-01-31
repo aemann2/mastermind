@@ -7,6 +7,7 @@ const setGuessSequence = jest.fn();
 const setWin = jest.fn();
 const setModalOpen = jest.fn();
 const setRoundStarted = jest.fn();
+const numberOfInputs = 4;
 
 const NumbersComponent = (
 	<Numbers
@@ -19,6 +20,7 @@ const NumbersComponent = (
 		setGuessSequence={setGuessSequence}
 		roundStarted={true}
 		setRoundStarted={setRoundStarted}
+		numberOfInputs={numberOfInputs}
 	></Numbers>
 );
 

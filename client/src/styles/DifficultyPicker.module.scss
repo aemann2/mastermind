@@ -1,2 +1,26 @@
 .difficultyPicker {
+	margin-bottom: 1rem;
+	button {
+		margin-right: 1rem;
+		width: 75px;
+		cursor: pointer;
+		font-size: 1rem;
+		padding: 0.5rem;
+		border: none;
+		border-radius: 6px;
+		color: #e6e6e6;
+		&:hover {
+			filter: brightness(150%);
+		}
+	}
+	.easy {
+		background-color: greenyellow;
+		color: #050517;
+		&:hover {
+			filter: brightness(120%);
+		}
+	}
+	.hard {
+		background-color: red;
+	}
 }
