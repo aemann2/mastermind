@@ -33,16 +33,16 @@ function Index() {
 	// Ref to get around useEffect dependency warning
 	const loadUserRef = useRef(loadUser);
 
-	const getSequence = async () => {
-		const num = await axios('/api/randomnum');
+	const getSequence = async (numberOfInputs: number) => {
+		const num = await axios(`/api/randomnum?len=${numberOfInputs}`);
 		// Log to show mystery number
 		console.log(num.data.number);
 		setSequence(num.data.number);
 	};
 
 	useEffect(() => {
-		getSequence();
-	}, []);
+		getSequence(numberOfInputs);
+	}, [numberOfInputs]);
 
 	useEffect(() => {
 		if (isAuthenticated) {
@@ -83,7 +83,7 @@ function Index() {
 		setGameEndModalOpen(false);
 		setSequence(null);
 		setElapsedTime({ mins: 0, secs: 0 });
-		getSequence();
+		getSequence(numberOfInputs);
 	};
 
 	const callbackElapsedTime = useCallback(setElapsedTime, [setElapsedTime]);
